@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext js,jsx,ts,tsx --fix",
-    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
+    "lint": "next lint",
+    "type-check": "tsc --pretty --noEmit",
     "postinstall": "husky install"
   },
   "husky": {
@@ -16,8 +16,8 @@
     }
   },
   "lint-staged": {
-    "**/*.ts?(x)": "yarn type-check",
-    "**/*.(ts|js)?(x)": "yarn lint"
+    "**/*.ts": "yarn type-check",
+    "**/*.(ts|js)": "yarn lint"
   },
   "dependencies": {
     "next": "11.0.1",
