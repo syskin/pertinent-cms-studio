@@ -21,6 +21,7 @@ const httpMethods = {
   delete: axios.delete,
   patch: axios.patch,
 }
+
 export const apiClient = axios.request
 
 export type ResponseType = AxiosResponse
