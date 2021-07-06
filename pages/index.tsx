@@ -1,6 +1,8 @@
 import { getSiteInformation } from '../api/site'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 
+import 'tailwindcss/tailwind.css'
+
 interface Page {
   name: string
   id: number
