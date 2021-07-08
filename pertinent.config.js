@@ -5,27 +5,21 @@ module.exports = {
             pages: {
                 create: {
                     path: '/pertinent-pages',
-                    method: 'post'
                 },
                 getAll: {
                     path: '/pertinent-pages/meta',
-                    method: 'get'
                 },
                 getOneById: {
-                    path: '/pertinent-pages/:id',
-                    method: 'get'
+                    path: '/pertinent-pages/page/:id',
                 },
                 getOneByPath: {
                     path: '/pertinent-pages/:path',
-                    method: 'get'
                 },
                 updateOneById: {
-                    path: '/pertinent-pages/:id',
-                    method: 'put'
+                    path: '/pertinent-pages/page/:id',
                 },
                 deleteOneById: {
-                    path: '/pertinent-pages/:id',
-                    method: 'delete'
+                    path: '/pertinent-pages/page/:id',
                 },
             }
         }

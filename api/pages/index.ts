@@ -1,8 +1,9 @@
-import { apiClient } from '../httpService'
-import { ResponseType } from '../httpService'
+import httpMethods, { ResponseType } from '../httpService'
+import pertinentConfig from '../../pertinent.config'
 
-export const getAll = (filter: Record<string, any> | null): Promise<ResponseType> => {
-  const method = 'get'
-  const url = '/'
-  return apiClient({ method, url, data: filter })
+const pagesEndpoints = pertinentConfig.dashboard.endpoints.pages
+
+export const getAll = (): Promise<ResponseType> => {
+  const endpoint = pagesEndpoints.getAll
+  return httpMethods.get(endpoint.path)
 }
