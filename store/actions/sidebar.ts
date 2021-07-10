@@ -2,20 +2,12 @@ import { ThunkAction } from 'redux-thunk'
 import { RootState } from '..'
 import { DefaultAction, OPEN, CLOSE } from '../types/sidebar'
 
-// Set loading
-export const setLoading = (): ThunkAction<void, RootState, null, DefaultAction> => {
-  return (dispatch) => {
-    dispatch({
-      type: OPEN,
-    })
-  }
-}
+// Open sidebar
+export const updateState = (): ThunkAction<void, RootState, null, DefaultAction> => {
+  return (dispatch, getState) => {
+    const sidebarState = getState().sidebar.state
 
-// Set error
-export const setError = (): ThunkAction<void, RootState, null, DefaultAction> => {
-  return (dispatch) => {
-    dispatch({
-      type: CLOSE,
-    })
+    if (sidebarState === true) dispatch({ type: CLOSE })
+    else dispatch({ type: OPEN })
   }
 }
