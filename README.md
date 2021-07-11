@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pertinent CMS Studio
 
-## Getting Started
+![ci badge](https://github.com/syskin/pertinent-cms-studio/workflows/CI/badge.svg)
+[![GitHub version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/syskin/pertinent-cms-studio)
 
-First, run the development server:
+Craft your own website using basic CSS through Pertinent CMS Studio interface
 
-```bash
-npm run dev
-# or
-yarn dev
+## Description
+
+This project is a part of Pertinent CMS which allows you to design and setup your own website as simple as possible.
+
+## Requirements
+1. Node.js >= 12.x
+2. [Pertinent Dashboard](https://github.com/syskin/pertinent-cms-dashboard) (Strapi project with pertinent-plugins)
+
+## Getting started
+
+### Configuration
+
+#### .env
+
+|Key|Type|Default|Description|
+|---|----|-------|-----------|
+|API_BASE_URL=|string|null|Base url of the pertinent dashboard project (Local is : http://127.0.0.1:1337)|
+
+### Build
+
+Watch development environment
+```
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build production environment
+```
+yarn build
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Lauch production build
+```
+yarn start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Included in the project
+- Pertinent Studio
+- Development & production environments
