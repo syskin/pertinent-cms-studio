@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import Editor from '@monaco-editor/react'
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div>
       <Head>
@@ -43,3 +43,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home

@@ -18,7 +18,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-const Home = ({ pages }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: React.FC = ({ pages }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div>
       Home page

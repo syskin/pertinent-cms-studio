@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import Link from 'next/link'
 
-const MenuHeader = () => {
+const MenuHeader: React.FC = () => {
   const { state } = useSelector((state: RootState) => state.sidebar)
   const baseMenuHeaderWrapper = `transform duration-300 bg-gray-100 w-full h-12 fixed top-0 z-10`
 
