@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import 'tailwindcss/tailwind.css'
 import MenuHeader from '../../../components/interface/menu/MenuHeader'
 import Sidebar from '../../../components/interface/sidebar'
+import Editor from '@monaco-editor/react'
 import { RootState } from '../../../store'
 
 const Page: React.FC = () => {
@@ -12,6 +13,18 @@ const Page: React.FC = () => {
       <MenuHeader />
       <div className={state ? `${baseMainContentWrapper} pr-72` : `${baseMainContentWrapper}`}>
         Main content
+        <Editor
+          height="90vh"
+          defaultLanguage="css"
+          defaultValue="div { size: 15px;}"
+          options={{
+            lineNumbers: false,
+            contextmenu: false,
+            minimap: {
+              enabled: false,
+            },
+          }}
+        />
       </div>
       <Sidebar />
     </div>
