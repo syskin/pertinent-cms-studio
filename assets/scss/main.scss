@@ -1,8 +1,39 @@
 h2 {
-    font-size: 1.5rem !important;
     @apply text-gray-800;
 }
 
 p {
     @apply text-gray-700;
+}
+
+.btn {
+    @apply py-1 px-2 text-center rounded-md shadow-sm m-1 cursor-pointer transform duration-300 truncate;
+
+    &:hover {
+        @apply scale-105; 
+    }
+}
+
+.btn-add {
+    @apply bg-green-400 text-white;
+    
+    &:hover {
+        @apply bg-green-500; 
+    }
+}
+
+.btn-delete {
+    @apply bg-red-400 text-white;
+
+    &:hover {
+        @apply bg-red-500; 
+    }
+}
+
+.btn-edit {
+    @apply bg-green-400 text-white;
+    
+    &:hover {
+        @apply bg-green-500; 
+    }
 }
