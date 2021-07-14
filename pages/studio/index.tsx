@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import 'tailwindcss/tailwind.css'
-import { getSiteInformation } from '../../api/site'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+
+import { getSiteInformation } from '../../api/site'
 import MenuHeader from '../../components/interface/menu/MenuHeader'
 
 interface Page {
@@ -32,14 +32,18 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
 
       <main className={baseMainContentWrapper}>
         <MenuHeader />
-        <div>
-          {pages.map((page: Page) => {
-            return (
-              <Link key={page.id} href={`studio/page/${page.id}`}>
-                <a>{page.name}</a>
-              </Link>
-            )
-          })}
+        <div className="container w-4/5 md:w-2/3 lg:w-1/2 mx-auto">
+          <h2>Pages</h2>
+          <p>Description of the page section</p>
+          <div className="flex flex-col mt-6">
+            {pages.map((page: Page) => {
+              return (
+                <Link key={page.id} href={`studio/page/${page.id}`}>
+                  <a className="rounded-md bg-gray-100 px-2 py-1 shadow-sm">{page.name}</a>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </main>
     </>

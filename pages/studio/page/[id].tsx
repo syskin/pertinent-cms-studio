@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import Head from 'next/head'
-import 'tailwindcss/tailwind.css'
 import MenuHeader from '../../../components/interface/menu/MenuHeader'
 import Sidebar from '../../../components/interface/sidebar'
 import Editor from '@monaco-editor/react'
@@ -22,7 +21,7 @@ const Page: React.FC = () => {
           <Editor
             height="90vh"
             defaultLanguage="css"
-            defaultValue="div { size: 15px;}"
+            defaultValue=""
             options={{
               lineNumbers: false,
               contextmenu: false,
