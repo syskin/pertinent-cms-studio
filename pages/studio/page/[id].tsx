@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux'
 import Head from 'next/head'
 import MenuHeader from '../../../components/interface/menu/MenuHeader'
 import Sidebar from '../../../components/interface/sidebar'
-import Editor from '@monaco-editor/react'
 import { RootState } from '../../../store'
 
 const Page: React.FC = () => {
@@ -18,18 +17,6 @@ const Page: React.FC = () => {
         <MenuHeader />
         <div className={state ? `${baseMainContentWrapper} pr-72` : `${baseMainContentWrapper}`}>
           Main content
-          <Editor
-            height="90vh"
-            defaultLanguage="css"
-            defaultValue=""
-            options={{
-              lineNumbers: false,
-              contextmenu: false,
-              minimap: {
-                enabled: false,
-              },
-            }}
-          />
         </div>
         <Sidebar />
       </main>
