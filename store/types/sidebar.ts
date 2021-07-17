@@ -1,16 +1,16 @@
-export const OPEN = 'OPEN'
-export const CLOSE = 'CLOSE'
+export const OPEN_SIDEBAR = 'OPEN_SIDEBAR'
+export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR'
 
 export interface DefaultState {
-  state: boolean
+  isSidebarOpen: boolean
 }
 
 interface Open {
-  type: typeof OPEN
+  type: typeof OPEN_SIDEBAR
 }
 
 interface Close {
-  type: typeof CLOSE
+  type: typeof CLOSE_SIDEBAR
 }
 
 export type DefaultAction = Open | Close

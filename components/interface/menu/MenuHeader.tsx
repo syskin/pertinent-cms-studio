@@ -1,9 +1,14 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../store'
 import Link from 'next/link'
 
+import { openModal } from '../../../store/actions/modal'
+import { EDIT_SITE } from '../../../store/types/modal'
+
 const MenuHeader: React.FC = () => {
-  const { state } = useSelector((state: RootState) => state.sidebar)
+  const dispatch = useDispatch()
+
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
   const baseMenuHeaderWrapper = `transform duration-300 bg-gray-100 w-full h-12 fixed top-0 z-10`
 
   type Links = Link[]
@@ -24,8 +29,12 @@ const MenuHeader: React.FC = () => {
     },
   ]
 
+  const handleModalConfiguration = (): void => {
+    dispatch(openModal(EDIT_SITE))
+  }
+
   return (
-    <div className={state ? `${baseMenuHeaderWrapper} pr-72` : `${baseMenuHeaderWrapper}`}>
+    <div className={isSidebarOpen ? `${baseMenuHeaderWrapper} pr-72` : `${baseMenuHeaderWrapper}`}>
       <ul className="flex flex-row justify-start items-center h-full">
         {linksMenu.map((link: Link, index: number) => {
           return (
@@ -36,6 +45,9 @@ const MenuHeader: React.FC = () => {
             </li>
           )
         })}
+        <li className="ml-auto mr-2">
+          <button onClick={handleModalConfiguration}>Configure</button>
+        </li>
       </ul>
     </div>
   )

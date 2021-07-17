@@ -8,7 +8,7 @@ import PageItem from '../../components/pages/PageItem'
 import Modal from '../../components/interface/modal'
 
 import { useDispatch } from 'react-redux'
-import { open } from '../../store/actions/modal'
+import { openModal } from '../../store/actions/modal'
 import { ADD_PAGE } from '../../store/types/modal'
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -25,7 +25,7 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
   const dispatch = useDispatch()
 
   const handleModalAddPage = (): void => {
-    dispatch(open(ADD_PAGE))
+    dispatch(openModal(ADD_PAGE))
   }
   const baseMainContentWrapper = `flex-1 min-h-screen transform duration-300 pt-12`
   return (

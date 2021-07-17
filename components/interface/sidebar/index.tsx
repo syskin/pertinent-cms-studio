@@ -6,22 +6,22 @@ import Editor from '@monaco-editor/react'
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
-  const { state } = useSelector((state: RootState) => state.sidebar)
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
   const baseTransformDuration = `transform duration-300`
   const baseWrapperStyle = `${baseTransformDuration} flex-initial h-screen bg-gray-100 fixed right-0 shadow-sm z-20`
   const baseButtonStateStyle = `${baseTransformDuration} absolute right-1 bottom-1 rounded-lg bg-gray-100 shadow-sm px-2 py-1 m-2`
 
   const handleSidebar = (): void => {
-    dispatch(updateState())
+    dispatch(updateState(!isSidebarOpen))
   }
 
   return (
-    <div className={state ? `${baseWrapperStyle} w-72` : `${baseWrapperStyle} w-0`}>
+    <div className={isSidebarOpen ? `${baseWrapperStyle} w-72` : `${baseWrapperStyle} w-0`}>
       <button
-        className={state ? `${baseButtonStateStyle} mr-60` : `${baseButtonStateStyle} mr-0`}
+        className={isSidebarOpen ? `${baseButtonStateStyle} mr-60` : `${baseButtonStateStyle} mr-0`}
         onClick={handleSidebar}
       >
-        {state ? 'Close' : 'Open'}
+        {isSidebarOpen ? 'Close' : 'Open'}
       </button>
       <div className="mt-12 p-4">
         <Editor

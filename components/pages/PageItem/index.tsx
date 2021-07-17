@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Page } from '../../../types/pages'
 
 import { useDispatch } from 'react-redux'
-import { open } from '../../../store/actions/modal'
+import { openModal } from '../../../store/actions/modal'
 import { DELETE_PAGE } from '../../../store/types/modal'
 
 interface PagesItemProps {
@@ -13,7 +13,7 @@ const MenuHeader: React.FC<PagesItemProps> = ({ page }) => {
   const dispatch = useDispatch()
 
   const handleModalDelete = (): void => {
-    dispatch(open(DELETE_PAGE))
+    dispatch(openModal(DELETE_PAGE))
   }
 
   return (

@@ -1,5 +1,5 @@
 const DeletePage: React.FC = () => {
-  return <div></div>
+  return <div>Delete this page ?</div>
 }
 
 export default DeletePage

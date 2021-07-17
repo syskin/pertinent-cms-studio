@@ -1,4 +1,4 @@
-import { DefaultAction, DefaultState, OPEN, CLOSE } from '../types/modal'
+import { DefaultAction, DefaultState, OPEN_MODAL, CLOSE_MODAL } from '../types/modal'
 
 const initialState: DefaultState = {
   isOpen: false,
@@ -8,12 +8,12 @@ const initialState: DefaultState = {
 const modalReducer = (state = initialState, action: DefaultAction): DefaultState => {
   if (!action || !action.type) return state
   switch (action.type) {
-    case OPEN:
+    case OPEN_MODAL:
       return {
         type: action.form_type,
         isOpen: true,
       }
-    case CLOSE:
+    case CLOSE_MODAL:
       return {
         isOpen: false,
         type: null,

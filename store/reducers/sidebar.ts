@@ -1,19 +1,19 @@
-import { OPEN, CLOSE, DefaultState, DefaultAction } from '../types/sidebar'
+import { OPEN_SIDEBAR, CLOSE_SIDEBAR, DefaultState, DefaultAction } from '../types/sidebar'
 
 const initialState: DefaultState = {
-  state: false,
+  isSidebarOpen: false,
 }
 
 const defaultReducer = (state = initialState, action: DefaultAction): DefaultState => {
   if (!action || !action.type) return state
   switch (action.type) {
-    case OPEN:
+    case OPEN_SIDEBAR:
       return {
-        state: true,
+        isSidebarOpen: true,
       }
-    case CLOSE:
+    case CLOSE_SIDEBAR:
       return {
-        state: false,
+        isSidebarOpen: false,
       }
     default:
       return state
