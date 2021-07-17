@@ -5,6 +5,11 @@ import { getSiteInformation } from '../../api/site'
 import MenuHeader from '../../components/interface/menu/MenuHeader'
 import { Page } from '../../types/pages'
 import PageItem from '../../components/pages/PageItem'
+import Modal from '../../components/interface/modal'
+
+import { useDispatch } from 'react-redux'
+import { open } from '../../store/actions/modal'
+import { ADD_PAGE } from '../../store/types/modal'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const result = await getSiteInformation()
@@ -17,6 +22,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 
 const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const dispatch = useDispatch()
+
+  const handleModalAddPage = (): void => {
+    dispatch(open(ADD_PAGE))
+  }
   const baseMainContentWrapper = `flex-1 min-h-screen transform duration-300 pt-12`
   return (
     <>
@@ -33,7 +43,9 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
               <h2 className="text-2xl font-bold">Pages</h2>
               <p>Description of the page section</p>
             </div>
-            <button className="btn btn-add h-8">Add new page</button>
+            <button className="btn btn-add h-8" onClick={handleModalAddPage}>
+              Add new page
+            </button>
           </div>
           <div className="flex flex-col mt-6">
             {pages.map((page: Page) => {
@@ -41,6 +53,7 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
             })}
           </div>
         </div>
+        <Modal />
       </main>
     </>
   )
