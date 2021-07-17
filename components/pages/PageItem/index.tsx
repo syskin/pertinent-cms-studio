@@ -1,11 +1,21 @@
 import Link from 'next/link'
 import { Page } from '../../../types/pages'
 
+import { useDispatch } from 'react-redux'
+import { open } from '../../../store/actions/modal'
+import { DELETE_PAGE } from '../../../store/types/modal'
+
 interface PagesItemProps {
   page: Page
 }
 
 const MenuHeader: React.FC<PagesItemProps> = ({ page }) => {
+  const dispatch = useDispatch()
+
+  const handleModalDelete = (): void => {
+    dispatch(open(DELETE_PAGE))
+  }
+
   return (
     <div className="flex flex-row flex-no-wrap rounded-lg bg-gray-100 px-4 py-2 shadow-md hover:shadow-lg transform duration-300 my-4">
       <div className="flex flex-col w-4/5 px-2">
@@ -17,7 +27,9 @@ const MenuHeader: React.FC<PagesItemProps> = ({ page }) => {
         <Link href={`/studio/page/${page.id}`}>
           <a className="btn btn-edit">Edit</a>
         </Link>
-        <span className="btn btn-delete">Delete</span>
+        <button className="btn btn-delete" onClick={handleModalDelete}>
+          Delete
+        </button>
       </div>
     </div>
   )
