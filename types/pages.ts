@@ -3,4 +3,5 @@ export interface Page {
   id: string
   path: string
   description: string
+  root?: []
 }
