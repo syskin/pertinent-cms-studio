@@ -1,7 +1,7 @@
 export interface Page {
-  name: string
-  id: string
-  path: string
-  description: string
+  name: string | null
+  id: string | null
+  slug: string | null
+  description: string | null
   root?: []
 }

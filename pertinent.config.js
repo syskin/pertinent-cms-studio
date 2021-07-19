@@ -12,8 +12,8 @@ module.exports = {
                 getOneById: {
                     path: '/pertinent-pages/page/:id',
                 },
-                getOneByPath: {
-                    path: '/pertinent-pages/:path',
+                getOneBySlug: {
+                    path: '/pertinent-pages/:slug',
                 },
                 updateOneById: {
                     path: '/pertinent-pages/page/:id',
