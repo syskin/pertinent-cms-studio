@@ -38,14 +38,17 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
       <main className={baseMainContentWrapper}>
         <MenuHeader />
         <div className="container w-4/5 md:w-2/3 lg:w-1/2 mx-auto">
-          <div className="flex flex-row justify-between items-center pr-4">
+          <div className="flex flex-row items-center">
             <div className="pt-4">
               <h2 className="text-2xl font-bold">Pages</h2>
               <p>Description of the page section</p>
             </div>
-            <button className="btn btn-add h-8" onClick={handleModalAddPage}>
-              Add new page
-            </button>
+            <div className="mr-0 ml-auto">
+              <button className="btn bg-gray-50 hover:bg-gray-100 h-8" onClick={handleModalAddPage}>
+                Add
+              </button>
+              <button className="btn bg-gray-50 hover:bg-gray-100 h-8">Refresh</button>
+            </div>
           </div>
           <div className="flex flex-col mt-6">
             {pages.map((page: Page) => {
