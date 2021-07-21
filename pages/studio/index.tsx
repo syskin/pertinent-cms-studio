@@ -1,32 +1,27 @@
 import Head from 'next/head'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-
-import { getSiteInformation } from '../../api/site'
 import MenuHeader from '../../components/interface/menu/MenuHeader'
-import { Page } from '../../types/pages'
-import PageItem from '../../components/pages/PageItem'
+import PageItems from '../../components/pages/PageItems'
 import Modal from '../../components/interface/modal'
 
 import { useDispatch } from 'react-redux'
 import { openModal } from '../../store/actions/modal'
 import { ADD_PAGE } from '../../store/types/modal'
+import { getAllPages } from '../../store/actions/pages'
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const result = await getSiteInformation()
-  const pages: Page[] = result.data
-  return {
-    props: {
-      pages,
-    },
-  }
-}
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Studio: React.FC = () => {
   const dispatch = useDispatch()
 
   const handleModalAddPage = (): void => {
     dispatch(openModal(ADD_PAGE))
   }
+
+  const handleRefreshPages = (): void => {
+    dispatch(getAllPages())
+  }
+
   const baseMainContentWrapper = `flex-1 min-h-screen transform duration-300 pt-12`
   return (
     <>
@@ -38,6 +33,17 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
       <main className={baseMainContentWrapper}>
         <MenuHeader />
         <div className="container w-4/5 md:w-2/3 lg:w-1/2 mx-auto">
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <div className="flex flex-row items-center">
             <div className="pt-4">
               <h2 className="text-2xl font-bold">Pages</h2>
@@ -47,14 +53,12 @@ const Studio: React.FC = ({ pages }: InferGetServerSidePropsType<typeof getServe
               <button className="btn bg-gray-50 hover:bg-gray-100 h-8" onClick={handleModalAddPage}>
                 Add
               </button>
-              <button className="btn bg-gray-50 hover:bg-gray-100 h-8">Refresh</button>
+              <button className="btn bg-gray-50 hover:bg-gray-100 h-8" onClick={handleRefreshPages}>
+                Refresh
+              </button>
             </div>
           </div>
-          <div className="flex flex-col mt-6">
-            {pages.map((page: Page) => {
-              return <PageItem page={page} key={page.id} />
-            })}
-          </div>
+          <PageItems />
         </div>
         <Modal />
       </main>
