@@ -12,19 +12,33 @@ interface TabsProps {
 const Tabs: React.FC<TabsProps> = ({ tabs, defaultActiveIndex }) => {
   const [activeItem, setActiveItem] = useState(defaultActiveIndex)
 
+  const baseButtonClass = `mx-2 rounded-md hover:bg-gray-300 hover:text-gray-500 px-2 py-1 transform duration-300`
+
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="flex flex-row items-center h-12">
         {tabs.map((tab, index) => {
           return (
-            <div key={`tab_item_${index}`}>
-              <button onClick={() => setActiveItem(index)}>{tab.tabName}</button>
-            </div>
+            <button
+              className={
+                activeItem === index
+                  ? `${baseButtonClass} text-gray-800 underline`
+                  : `${baseButtonClass} text-gray-300`
+              }
+              key={`tab_item_${index}`}
+              onClick={() => setActiveItem(index)}
+            >
+              {tab.tabName}
+            </button>
           )
         })}
       </div>
       {tabs.map((tab, index) => {
-        return <div key={`tab_content_${index}`}>{activeItem === index ? tab.child : null}</div>
+        return (
+          <div className="px-3" key={`tab_content_${index}`}>
+            {activeItem === index ? tab.child : null}
+          </div>
+        )
       })}
     </div>
   )
