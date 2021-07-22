@@ -1,12 +1,28 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
-import MenuHeader from '../../../components/interface/Menu/MenuHeader'
-import Sidebar from '../../../components/interface/Sidebar'
+
 import { RootState } from '../../../store'
+import { getActivePage } from '../../../store/actions/pages'
 
 import Modal from '../../../components/interface/Modal'
+import MenuHeader from '../../../components/interface/Menu/MenuHeader'
+import Sidebar from '../../../components/interface/Sidebar'
 
-const Page: React.FC = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: { params: context.params },
+  }
+}
+
+const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getActivePage(params.id))
+  }, [dispatch, params.id])
+
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
   const baseMainContentWrapper = `flex-1 min-h-screen bg-gray-500 transform duration-300 mb-52 pt-12`
   return (

@@ -23,7 +23,7 @@ interface getAllPages {
 
 interface getOnePageById {
   type: typeof GET_ONE_BY_ID
-  id: string
+  page: Page
 }
 
 interface updateOnePageById {
@@ -33,7 +33,7 @@ interface updateOnePageById {
 
 interface deleteOnePageById {
   type: typeof DELETE_ONE_BY_ID
-  id: string
+  page: Page
 }
 
 interface SetLoading {

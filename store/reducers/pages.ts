@@ -32,6 +32,7 @@ const pagesReducer = (state = initialState, action: DefaultAction): DefaultState
     case GET_ONE_BY_ID:
       return {
         ...state,
+        activePage: action.page,
       }
     case UPDATE_ONE_BY_ID:
       return {
@@ -40,6 +41,7 @@ const pagesReducer = (state = initialState, action: DefaultAction): DefaultState
     case DELETE_ONE_BY_ID:
       return {
         ...state,
+        activePage: initialState.activePage,
       }
     case SET_LOADING:
       return {

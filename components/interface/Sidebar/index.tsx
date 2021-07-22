@@ -5,6 +5,8 @@ import { updateState } from '../../../store/actions/sidebar'
 import Tabs from '../Tabs'
 import Editor from '@monaco-editor/react'
 
+import PageConfiguration from '../../form/PageConfiguration'
+
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
@@ -12,7 +14,7 @@ const Sidebar: React.FC = () => {
   const baseWrapperStyle = `${baseTransformDuration} flex-initial h-screen bg-gray-100 fixed right-0 shadow-sm z-20`
   const baseButtonStateStyle = `${baseTransformDuration} absolute right-1 bottom-1 rounded-lg bg-gray-100 shadow-sm px-2 py-1 m-2`
 
-  const GeneralPanel = <div>Hello world its config</div>
+  const GeneralPanel = <PageConfiguration />
   const StructurePanel = <div>Hello world its structure</div>
   const StylePanel = (
     <Editor

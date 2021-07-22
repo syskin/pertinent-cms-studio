@@ -4,7 +4,7 @@ import { RootState } from '../../../store'
 import { closeModal } from '../../../store/actions/modal'
 import { ADD_PAGE, DELETE_PAGE, EDIT_SITE, FormTypes } from '../../../store/types/modal'
 
-import AddPage from '../../form/AddPage'
+import PageConfiguration from '../../form/PageConfiguration'
 import DeletePage from '../../form/DeletePage'
 import EditSite from '../../form/EditSite'
 
@@ -63,7 +63,7 @@ interface formProps {
 const getForm: React.FC<formProps> = ({ type }) => {
   switch (type) {
     case ADD_PAGE:
-      return <AddPage />
+      return <PageConfiguration />
     case DELETE_PAGE:
       return <DeletePage />
     case EDIT_SITE:

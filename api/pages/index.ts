@@ -15,7 +15,7 @@ export const getAll = (): Promise<ResponseType> => {
 }
 
 export const getOneById = (id: string): Promise<ResponseType> => {
-  const endpoint = pagesEndpoints.getOneById
+  const endpoint = { ...pagesEndpoints.getOneById }
   endpoint.path = endpoint.path.replace(':id', id)
   return httpMethods.get(endpoint.path)
 }

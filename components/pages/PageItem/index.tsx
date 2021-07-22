@@ -4,6 +4,7 @@ import { Page } from '../../../types/pages'
 import { useDispatch } from 'react-redux'
 import { openModal } from '../../../store/actions/modal'
 import { DELETE_PAGE } from '../../../store/types/modal'
+import { getActivePage } from '../../../store/actions/pages'
 
 interface PagesItemProps {
   page: Page
@@ -12,8 +13,9 @@ interface PagesItemProps {
 const MenuHeader: React.FC<PagesItemProps> = ({ page }) => {
   const dispatch = useDispatch()
 
-  const handleModalDelete = (): void => {
+  const handleModalDelete = (page: Page): void => {
     dispatch(openModal(DELETE_PAGE))
+    dispatch(getActivePage(page.id))
   }
 
   return (
@@ -27,7 +29,7 @@ const MenuHeader: React.FC<PagesItemProps> = ({ page }) => {
         <Link href={`/studio/page/${page.id}`}>
           <a className="btn btn-edit">Edit</a>
         </Link>
-        <button className="btn btn-delete" onClick={handleModalDelete}>
+        <button className="btn btn-delete" onClick={() => handleModalDelete(page)}>
           Delete
         </button>
       </div>
