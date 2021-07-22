@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
 import Head from 'next/head'
-import MenuHeader from '../../../components/interface/menu/MenuHeader'
-import Sidebar from '../../../components/interface/sidebar'
+import MenuHeader from '../../../components/interface/Menu/MenuHeader'
+import Sidebar from '../../../components/interface/Sidebar'
 import { RootState } from '../../../store'
 
-import Modal from '../../../components/interface/modal'
+import Modal from '../../../components/interface/Modal'
 
 const Page: React.FC = () => {
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)

@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { updateState } from '../../../store/actions/sidebar'
+import Tabs from '../Tabs'
 import Editor from '@monaco-editor/react'
 
 const Sidebar: React.FC = () => {
@@ -10,6 +11,23 @@ const Sidebar: React.FC = () => {
   const baseTransformDuration = `transform duration-300`
   const baseWrapperStyle = `${baseTransformDuration} flex-initial h-screen bg-gray-100 fixed right-0 shadow-sm z-20`
   const baseButtonStateStyle = `${baseTransformDuration} absolute right-1 bottom-1 rounded-lg bg-gray-100 shadow-sm px-2 py-1 m-2`
+
+  const GeneralPanel = <div>Hello world its config</div>
+  const StructurePanel = <div>Hello world its structure</div>
+  const StylePanel = (
+    <Editor
+      height="70vh"
+      defaultLanguage="css"
+      defaultValue=""
+      options={{
+        lineNumbers: false,
+        contextmenu: false,
+        minimap: {
+          enabled: false,
+        },
+      }}
+    />
+  )
 
   const handleSidebar = (): void => {
     dispatch(updateState(!isSidebarOpen))
@@ -23,20 +41,14 @@ const Sidebar: React.FC = () => {
       >
         {isSidebarOpen ? 'Close' : 'Open'}
       </button>
-      <div className="mt-12 p-4">
-        <Editor
-          height="70vh"
-          defaultLanguage="css"
-          defaultValue=""
-          options={{
-            lineNumbers: false,
-            contextmenu: false,
-            minimap: {
-              enabled: false,
-            },
-          }}
-        />
-      </div>
+      <Tabs
+        tabs={[
+          { tabName: 'General', child: GeneralPanel },
+          { tabName: 'Structure', child: StructurePanel },
+          { tabName: 'Style', child: StylePanel },
+        ]}
+        defaultActiveIndex={0}
+      />
     </div>
   )
 }

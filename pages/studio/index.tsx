@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import MenuHeader from '../../components/interface/menu/MenuHeader'
+import MenuHeader from '../../components/interface/Menu/MenuHeader'
 import PageItems from '../../components/pages/PageItems'
-import Modal from '../../components/interface/modal'
+import Modal from '../../components/interface/Modal'
 
 import { useDispatch } from 'react-redux'
 import { openModal } from '../../store/actions/modal'
