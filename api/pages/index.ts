@@ -33,7 +33,7 @@ export const updateOneById = (id: string, payload: Page): Promise<ResponseType> 
 }
 
 export const deleteOneById = (id: string): Promise<ResponseType> => {
-  const endpoint = pagesEndpoints.updateOneById
+  const endpoint = { ...pagesEndpoints.deleteOneById }
   endpoint.path = endpoint.path.replace(':id', id)
-  return httpMethods.post(endpoint.path)
+  return httpMethods.delete(endpoint.path)
 }

@@ -46,11 +46,17 @@ export const deletePage = (): ThunkAction<void, RootState, null, DefaultAction> 
   return async (dispatch, getState) => {
     try {
       const activePageId = getState().pages?.activePage?.id
+      if (!activePageId) throw new Error('No page')
+
       await deleteOneById(activePageId)
       dispatch({ type: DELETE_ONE_BY_ID })
     } catch (error) {
-      toast.error(error.message)
-      dispatch({ type: SET_ERROR, error: error.message })
+      let errorContent = error.response
+      if (errorContent.status === 400) {
+        errorContent = errorContent.data
+      }
+      toast.error(errorContent.message)
+      dispatch({ type: SET_ERROR, error: errorContent.message })
     }
   }
 }
