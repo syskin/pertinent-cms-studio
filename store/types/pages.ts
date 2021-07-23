@@ -33,7 +33,6 @@ interface updateOnePageById {
 
 interface deleteOnePageById {
   type: typeof DELETE_ONE_BY_ID
-  page: Page
 }
 
 interface SetLoading {
