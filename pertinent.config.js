@@ -4,7 +4,7 @@ module.exports = {
             site: {},
             pages: {
                 create: {
-                    path: '/pertinent-pages',
+                    path: '/pertinent-pages/create',
                 },
                 getAll: {
                     path: '/pertinent-pages/meta',

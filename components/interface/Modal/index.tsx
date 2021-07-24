@@ -63,7 +63,7 @@ interface formProps {
 const getForm: React.FC<formProps> = ({ type }) => {
   switch (type) {
     case ADD_PAGE:
-      return <PageConfiguration />
+      return <PageConfiguration type="create" />
     case DELETE_PAGE:
       return <DeletePage />
     case EDIT_SITE:

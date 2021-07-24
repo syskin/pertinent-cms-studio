@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
   const baseWrapperStyle = `${baseTransformDuration} flex-initial h-screen bg-gray-100 fixed right-0 shadow-sm z-20`
   const baseButtonStateStyle = `${baseTransformDuration} absolute right-1 bottom-1 rounded-lg bg-gray-100 shadow-sm px-2 py-1 m-2`
 
-  const GeneralPanel = <PageConfiguration />
+  const GeneralPanel = <PageConfiguration type="edit" />
   const StructurePanel = <div>Hello world its structure</div>
   const StylePanel = (
     <Editor
