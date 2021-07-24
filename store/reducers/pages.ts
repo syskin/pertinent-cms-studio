@@ -39,6 +39,7 @@ const pagesReducer = (state = initialState, action: DefaultAction): DefaultState
         ...state,
       }
     case DELETE_ONE_BY_ID:
+      state.pages = state.pages.filter((page) => page.id !== state.activePage.id)
       return {
         ...state,
         activePage: initialState.activePage,
