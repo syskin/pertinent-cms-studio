@@ -4,22 +4,22 @@ module.exports = {
             site: {},
             pages: {
                 create: {
-                    path: '/pertinent-pages/create',
+                    path: '/pertinent/pages',
                 },
                 getAll: {
-                    path: '/pertinent-pages/meta',
+                    path: '/pertinent/pages/meta',
                 },
                 getOneById: {
-                    path: '/pertinent-pages/page/:id',
+                    path: '/pertinent/pages/:id',
                 },
                 getOneBySlug: {
-                    path: '/pertinent-pages/:slug',
+                    path: '/pertinent/pages/:slug',
                 },
                 updateOneById: {
-                    path: '/pertinent-pages/page/:id',
+                    path: '/pertinent/pages/:id',
                 },
                 deleteOneById: {
-                    path: '/pertinent-pages/page/:id',
+                    path: '/pertinent/pages/:id',
                 },
             }
         }
