@@ -12,6 +12,14 @@ p {
     &:hover {
         @apply scale-105; 
     }
+
+    &:disabled {
+        @apply bg-opacity-60;
+
+        &:hover {
+            @apply scale-100 bg-opacity-70;
+        }
+    }
 }
 
 .btn-add {

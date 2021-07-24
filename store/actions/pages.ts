@@ -45,10 +45,12 @@ export const getActivePage = (id: string): ThunkAction<void, RootState, null, De
 export const deletePage = (): ThunkAction<void, RootState, null, DefaultAction> => {
   return async (dispatch, getState) => {
     try {
+      dispatch({ type: SET_LOADING, loading: true })
       const activePageId = getState().pages?.activePage?.id
       if (!activePageId) throw new Error('No page')
 
       const result = await deleteOneById(activePageId)
+
       dispatch({ type: DELETE_ONE_BY_ID })
       toast.success(result.data.message)
     } catch (error) {
@@ -58,6 +60,8 @@ export const deletePage = (): ThunkAction<void, RootState, null, DefaultAction> 
       }
       toast.error(errorContent.message)
       dispatch({ type: SET_ERROR, error: errorContent.message })
+    } finally {
+      dispatch({ type: SET_LOADING, loading: false })
     }
   }
 }
