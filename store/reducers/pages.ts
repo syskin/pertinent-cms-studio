@@ -1,4 +1,5 @@
 import {
+  CREATE_ONE,
   DefaultAction,
   DefaultState,
   DELETE_ONE_BY_ID,
@@ -16,7 +17,6 @@ const initialState: DefaultState = {
     id: '',
     slug: '',
     description: '',
-    root: [],
   },
   pages: [],
 }
@@ -38,6 +38,11 @@ const pagesReducer = (state = initialState, action: DefaultAction): DefaultState
       return {
         ...state,
         activePage: action.page,
+      }
+    case CREATE_ONE:
+      state.pages.push(action.page)
+      return {
+        ...state,
       }
     case DELETE_ONE_BY_ID:
       state.pages = state.pages.filter((page) => page.id !== state.activePage.id)

@@ -4,6 +4,7 @@ import {
   DefaultAction,
   GET_ALL,
   GET_ONE_BY_ID,
+  CREATE_ONE,
   DELETE_ONE_BY_ID,
   SET_ERROR,
   SET_LOADING,
@@ -78,7 +79,7 @@ export const updatePage = (payload: Page): ThunkAction<void, RootState, null, De
 
       const result = await updateOneById(activePageId, payload)
 
-      dispatch({ type: UPDATE_ONE_BY_ID, page: result.data })
+      dispatch({ type: UPDATE_ONE_BY_ID, page: result.data.page })
       toast.success(result.data.message)
     } catch (error) {
       let errorContent = error.response ? error.response : error
@@ -101,7 +102,7 @@ export const createPage = (payload: Page): ThunkAction<void, RootState, null, De
 
       const result = await create(payload)
 
-      dispatch({ type: UPDATE_ONE_BY_ID, page: result.data })
+      dispatch({ type: CREATE_ONE, page: result.data.page })
       toast.success(result.data.message)
     } catch (error) {
       let errorContent = error.response ? error.response : error
