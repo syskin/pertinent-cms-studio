@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { updateState } from '../../../store/actions/sidebar'
@@ -13,6 +13,8 @@ const Sidebar: React.FC = () => {
   const baseTransformDuration = `transform duration-300`
   const baseWrapperStyle = `${baseTransformDuration} flex-initial h-screen bg-gray-100 fixed right-0 shadow-sm z-20`
   const baseButtonStateStyle = `${baseTransformDuration} absolute right-1 bottom-1 rounded-lg bg-gray-100 shadow-sm px-2 py-1 m-2`
+
+  const sidebar = useRef<HTMLDivElement>(null)
 
   const GeneralPanel = <PageConfiguration type="edit" />
   const StructurePanel = <div>Hello world its structure</div>
@@ -31,12 +33,26 @@ const Sidebar: React.FC = () => {
     />
   )
 
+  useEffect(() => {
+    if (!isSidebarOpen) return
+    const handleClick = (event: MouseEvent) => {
+      if (sidebar?.current && !sidebar?.current?.contains(event.target as Node)) {
+        dispatch(updateState(!isSidebarOpen))
+      }
+    }
+    window.addEventListener('click', handleClick)
+    return () => window.removeEventListener('click', handleClick)
+  }, [isSidebarOpen, dispatch])
+
   const handleSidebar = (): void => {
     dispatch(updateState(!isSidebarOpen))
   }
 
   return (
-    <div className={isSidebarOpen ? `${baseWrapperStyle} w-72` : `${baseWrapperStyle} w-0`}>
+    <div
+      ref={sidebar}
+      className={isSidebarOpen ? `${baseWrapperStyle} w-72` : `${baseWrapperStyle} w-0`}
+    >
       <button
         className={isSidebarOpen ? `${baseButtonStateStyle} mr-60` : `${baseButtonStateStyle} mr-0`}
         onClick={handleSidebar}
