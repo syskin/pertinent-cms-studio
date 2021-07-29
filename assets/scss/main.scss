@@ -45,3 +45,12 @@ p {
         @apply bg-green-500; 
     }
 }
+
+label {
+    display: flex;
+    flex-direction: column;
+    @apply my-2;
+    input, textarea {
+        @apply rounded-md shadow-sm focus:outline-none p-1;
+    }
+}

@@ -1,12 +1,16 @@
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 import { RootState } from '../../../store'
 import Link from 'next/link'
 
 import { openModal } from '../../../store/actions/modal'
 import { EDIT_SITE } from '../../../store/types/modal'
+import { updateState } from '../../../store/actions/sidebar'
 
 const MenuHeader: React.FC = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
   const baseMenuHeaderWrapper = `transform duration-300 bg-gray-100 w-full h-12 fixed top-0 z-10`
@@ -28,6 +32,10 @@ const MenuHeader: React.FC = () => {
       text: 'Studio',
     },
   ]
+
+  useEffect(() => {
+    dispatch(updateState(false))
+  }, [router, dispatch])
 
   const handleModalConfiguration = (): void => {
     dispatch(openModal(EDIT_SITE))
