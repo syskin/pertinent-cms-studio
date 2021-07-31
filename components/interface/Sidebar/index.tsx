@@ -6,6 +6,7 @@ import Tabs from '../Tabs'
 import Editor from '@monaco-editor/react'
 
 import PageConfiguration from '../../form/PageConfiguration'
+import PageStructure from '../../form/PageStructure'
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
@@ -17,7 +18,7 @@ const Sidebar: React.FC = () => {
   const sidebar = useRef<HTMLDivElement>(null)
 
   const GeneralPanel = <PageConfiguration type="edit" />
-  const StructurePanel = <div>Hello world its structure</div>
+  const StructurePanel = <PageStructure />
   const StylePanel = (
     <Editor
       height="70vh"

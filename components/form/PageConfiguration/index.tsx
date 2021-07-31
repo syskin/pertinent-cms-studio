@@ -90,7 +90,7 @@ const PageConfiguration: React.FC<PageConfigurationFormProps> = ({ type }) => {
         <textarea
           disabled={loading}
           name="description"
-          value={formData.description}
+          value={formData.description || ''}
           onChange={handleOnChange}
         />
       </label>
