@@ -21,6 +21,17 @@ module.exports = {
                 deleteOneById: {
                     path: '/pertinent/pages/:id',
                 },
+            },
+            tags: {
+                create: {
+                    path: '/pertinent/tags',
+                },
+                updateOneById: {
+                    path: '/pertinent/tags/:id',
+                },
+                deleteOneById: {
+                    path: '/pertinent/tags/:id',
+                },
             }
         }
     }
