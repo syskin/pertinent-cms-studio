@@ -3,13 +3,15 @@ import { RootState } from '..'
 import { DefaultAction, SET_ERROR_TAGS, SET_LOADING_TAGS } from '../types/tags'
 import { toast } from 'react-toastify'
 import { Tag } from '../../types/tags'
-import { create, updateOneById } from '../../api/tags'
+import { create, updateOneById, getByFilter } from '../../api/tags'
 
 // setActiveTag
-export const setActiveTag = (): ThunkAction<void, RootState, null, DefaultAction> => {
+export const setActiveTag = (filter: Tag): ThunkAction<void, RootState, null, DefaultAction> => {
   return async (dispatch) => {
     try {
       dispatch({ type: SET_LOADING_TAGS, loading: true })
+      const tags = await getByFilter(filter)
+      console.log(tags)
       // get tag config through api call
     } catch (e) {
       toast.error(e.message)

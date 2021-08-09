@@ -4,6 +4,11 @@ import { Tag } from '../../types/tags'
 
 const tagsEndpoints = pertinentConfig.dashboard.endpoints.tags
 
+export const getByFilter = (filter: Tag): Promise<ResponseType> => {
+  const endpoint = tagsEndpoints.get
+  return httpMethods.post(endpoint.path, filter)
+}
+
 export const create = (payload: Tag): Promise<ResponseType> => {
   const endpoint = tagsEndpoints.create
   return httpMethods.post(endpoint.path, payload)

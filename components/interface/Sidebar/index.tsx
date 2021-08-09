@@ -6,7 +6,7 @@ import Tabs from '../Tabs'
 import Editor from '@monaco-editor/react'
 
 import PageConfiguration from '../../form/PageConfiguration'
-import PageStructure from '../../form/PageStructure'
+import PageStructure from './PageStructure'
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()

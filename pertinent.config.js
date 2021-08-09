@@ -23,6 +23,9 @@ module.exports = {
                 },
             },
             tags: {
+                get: {
+                    path: '/pertinent/tags',
+                },
                 create: {
                     path: '/pertinent/tags',
                 },
