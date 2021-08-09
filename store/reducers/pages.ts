@@ -1,14 +1,14 @@
 import {
-  CREATE_ONE,
+  CREATE_PAGE,
   DefaultAction,
   DefaultState,
-  DELETE_ONE_BY_ID,
-  GET_ALL,
-  GET_ONE_BY_ID,
+  DELETE_ONE_PAGE_BY_ID,
+  GET_PAGES,
+  GET_ONE_PAGE_BY_ID,
   SET_ERROR,
   SET_LOADING,
   SET_SUCCESS,
-  UPDATE_ONE_BY_ID,
+  UPDATE_ONE_PAGE_BY_ID,
 } from '../types/pages'
 
 const initialState: DefaultState = {
@@ -24,27 +24,27 @@ const initialState: DefaultState = {
 const pagesReducer = (state = initialState, action: DefaultAction): DefaultState => {
   if (!action || !action.type) return state
   switch (action.type) {
-    case GET_ALL:
+    case GET_PAGES:
       return {
         ...state,
         pages: action.pages,
       }
-    case GET_ONE_BY_ID:
+    case GET_ONE_PAGE_BY_ID:
       return {
         ...state,
         activePage: action.page,
       }
-    case UPDATE_ONE_BY_ID:
+    case UPDATE_ONE_PAGE_BY_ID:
       return {
         ...state,
         activePage: action.page,
       }
-    case CREATE_ONE:
+    case CREATE_PAGE:
       state.pages.push(action.page)
       return {
         ...state,
       }
-    case DELETE_ONE_BY_ID:
+    case DELETE_ONE_PAGE_BY_ID:
       state.pages = state.pages.filter((page) => page.id !== state.activePage.id)
       return {
         ...state,

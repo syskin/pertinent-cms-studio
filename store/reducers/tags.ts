@@ -1,6 +1,16 @@
-import { DefaultAction, DefaultState, SET_ERROR, SET_LOADING, SET_SUCCESS } from '../types/tags'
+import {
+  DefaultAction,
+  DefaultState,
+  UPDATE_ONE_TAG_BY_ID,
+  CREATE_TAG,
+  DELETE_ONE_TAG_BY_ID,
+  SET_ERROR_TAGS,
+  SET_LOADING_TAGS,
+  SET_SUCCESS_TAGS,
+} from '../types/tags'
 
 const initialState: DefaultState = {
+  tags: [],
   loading: false,
   error: '',
   success: '',
@@ -9,17 +19,29 @@ const initialState: DefaultState = {
 const defaultReducer = (state = initialState, action: DefaultAction): DefaultState => {
   if (!action || !action.type) return state
   switch (action.type) {
-    case SET_LOADING:
+    case UPDATE_ONE_TAG_BY_ID:
+      return {
+        ...state,
+      }
+    case CREATE_TAG:
+      return {
+        ...state,
+      }
+    case DELETE_ONE_TAG_BY_ID:
+      return {
+        ...state,
+      }
+    case SET_LOADING_TAGS:
       return {
         ...state,
         loading: action.loading,
       }
-    case SET_ERROR:
+    case SET_ERROR_TAGS:
       return {
         ...state,
         error: action.error,
       }
-    case SET_SUCCESS:
+    case SET_SUCCESS_TAGS:
       return {
         ...state,
         success: action.success,

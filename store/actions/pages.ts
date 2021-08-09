@@ -2,15 +2,23 @@ import { ThunkAction } from 'redux-thunk'
 import { RootState } from '..'
 import {
   DefaultAction,
-  GET_ALL,
-  GET_ONE_BY_ID,
-  CREATE_ONE,
-  DELETE_ONE_BY_ID,
+  GET_PAGES,
+  GET_ONE_PAGE_BY_ID,
+  CREATE_PAGE,
+  DELETE_ONE_PAGE_BY_ID,
   SET_ERROR,
   SET_LOADING,
-  UPDATE_ONE_BY_ID,
+  UPDATE_ONE_PAGE_BY_ID,
 } from '../types/pages'
-import { getAll, getOneById, deleteOneById, updateOneById, create } from '../../api/pages'
+
+import {
+  getAll,
+  getOneById,
+  deleteOneById as deleteOnePageById,
+  updateOneById as updateOnePageById,
+  create as createNewPage,
+} from '../../api/pages'
+
 import { toast } from 'react-toastify'
 import { Page } from '../../types/pages'
 
@@ -21,7 +29,7 @@ export const getAllPages = (): ThunkAction<void, RootState, null, DefaultAction>
       dispatch({ type: SET_LOADING, loading: true })
 
       const pages = await getAll()
-      dispatch({ type: GET_ALL, pages: pages.data })
+      dispatch({ type: GET_PAGES, pages: pages.data })
     } catch (error) {
       toast.error(error.message)
       dispatch({ type: SET_ERROR, error: error.message })
@@ -36,7 +44,7 @@ export const getActivePage = (id: string): ThunkAction<void, RootState, null, De
   return async (dispatch) => {
     try {
       const page = await getOneById(id)
-      dispatch({ type: GET_ONE_BY_ID, page: page.data })
+      dispatch({ type: GET_ONE_PAGE_BY_ID, page: page.data })
     } catch (error) {
       toast.error(error.message)
       dispatch({ type: SET_ERROR, error: error.message })
@@ -52,9 +60,9 @@ export const deletePage = (): ThunkAction<void, RootState, null, DefaultAction> 
       const activePageId = getState().pages?.activePage?.id
       if (!activePageId) throw new Error('No page')
 
-      const result = await deleteOneById(activePageId)
+      const result = await deleteOnePageById(activePageId)
 
-      dispatch({ type: DELETE_ONE_BY_ID })
+      dispatch({ type: DELETE_ONE_PAGE_BY_ID })
       toast.success(result.data.message)
     } catch (error) {
       let errorContent = error.response
@@ -77,9 +85,9 @@ export const updatePage = (payload: Page): ThunkAction<void, RootState, null, De
       const activePageId = getState().pages?.activePage?.id
       if (!activePageId) throw new Error('No page')
 
-      const result = await updateOneById(activePageId, payload)
+      const result = await updateOnePageById(activePageId, payload)
 
-      dispatch({ type: UPDATE_ONE_BY_ID, page: result.data.page })
+      dispatch({ type: UPDATE_ONE_PAGE_BY_ID, page: result.data.page })
       toast.success(result.data.message)
     } catch (error) {
       let errorContent = error.response ? error.response : error
@@ -100,9 +108,9 @@ export const createPage = (payload: Page): ThunkAction<void, RootState, null, De
     try {
       dispatch({ type: SET_LOADING, loading: true })
 
-      const result = await create(payload)
+      const result = await createNewPage(payload)
 
-      dispatch({ type: CREATE_ONE, page: result.data.page })
+      dispatch({ type: CREATE_PAGE, page: result.data.page })
       toast.success(result.data.message)
     } catch (error) {
       let errorContent = error.response ? error.response : error

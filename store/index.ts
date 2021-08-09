@@ -4,6 +4,7 @@ import defaultReducer from './reducers/default'
 import sidebarReducer from './reducers/sidebar'
 import modalReducer from './reducers/modal'
 import pagesReducer from './reducers/pages'
+import tagsReducer from './reducers/tags'
 // import storage from 'redux-persist/lib/storage'
 
 const reducers = combineReducers({
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   sidebar: sidebarReducer,
   modal: modalReducer,
   pages: pagesReducer,
+  tags: tagsReducer,
 })
 
 function configureStore() {

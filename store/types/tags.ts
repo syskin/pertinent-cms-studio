@@ -1,26 +1,53 @@
-export const SET_LOADING = 'SET_TAGS_LOADING'
-export const SET_ERROR = 'SET_TAGS_ERROR'
-export const SET_SUCCESS = 'SET_TAGS_SUCCESS'
+import { Tag } from '../../types/tags'
+
+export const SET_LOADING_TAGS = 'SET_LOADING_TAGS'
+export const SET_ERROR_TAGS = 'SET_ERROR_TAGS'
+export const SET_SUCCESS_TAGS = 'SET_SUCCESS_TAGS'
+
+export const CREATE_TAG = 'CREATE_TAG'
+export const UPDATE_ONE_TAG_BY_ID = 'UPDATE_ONE_TAG_BY_ID'
+export const DELETE_ONE_TAG_BY_ID = 'DELETE_ONE_TAG_BY_ID'
 
 export interface DefaultState {
+  tags: Tag[]
   loading: boolean
   error: string
   success: string
 }
 
-interface SetLoading {
-  type: typeof SET_LOADING
+interface updateOneTagById {
+  type: typeof UPDATE_ONE_TAG_BY_ID
+  tag: Tag
+}
+
+interface deleteOneTagById {
+  type: typeof DELETE_ONE_TAG_BY_ID
+}
+
+interface createTag {
+  type: typeof CREATE_TAG
+  tag: Tag
+}
+
+interface setLoading {
+  type: typeof SET_LOADING_TAGS
   loading: boolean
 }
 
-interface SetError {
-  type: typeof SET_ERROR
+interface setError {
+  type: typeof SET_ERROR_TAGS
   error: string
 }
 
-interface SetSuccess {
-  type: typeof SET_SUCCESS
+interface setSuccess {
+  type: typeof SET_SUCCESS_TAGS
   success: string
 }
 
-export type DefaultAction = SetLoading | SetError | SetSuccess
+export type DefaultAction =
+  | updateOneTagById
+  | deleteOneTagById
+  | createTag
+  | setLoading
+  | setError
+  | setSuccess

@@ -1,40 +1,67 @@
 import { ThunkAction } from 'redux-thunk'
 import { RootState } from '..'
-import { DefaultAction, SET_ERROR, SET_LOADING, SET_SUCCESS } from '../types/tags'
+import { DefaultAction, SET_ERROR_TAGS, SET_LOADING_TAGS } from '../types/tags'
 import { toast } from 'react-toastify'
+import { Tag } from '../../types/tags'
+import { create, updateOneById } from '../../api/tags'
 
-// Set loading
-export const setLoading = (loading: boolean): ThunkAction<void, RootState, null, DefaultAction> => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_LOADING,
-      loading,
-    })
+// setActiveTag
+export const setActiveTag = (): ThunkAction<void, RootState, null, DefaultAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SET_LOADING_TAGS, loading: true })
+      // get tag config through api call
+    } catch (e) {
+      toast.error(e.message)
+      dispatch({
+        type: SET_ERROR_TAGS,
+        error: e.message,
+      })
+    } finally {
+      dispatch({ type: SET_LOADING_TAGS, loading: false })
+    }
   }
 }
 
-// Set error
-export const setError = (
-  errorMessage: string
-): ThunkAction<void, RootState, null, DefaultAction> => {
-  return (dispatch) => {
-    toast.error(errorMessage)
-    dispatch({
-      type: SET_ERROR,
-      error: errorMessage,
-    })
+// Add a new tag
+export const createTag = (payload: Tag): ThunkAction<void, RootState, null, DefaultAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SET_LOADING_TAGS, loading: true })
+
+      const result = await create(payload)
+      toast.success(result.data.message)
+    } catch (e) {
+      toast.error(e.message)
+      dispatch({
+        type: SET_ERROR_TAGS,
+        error: e.message,
+      })
+    } finally {
+      dispatch({ type: SET_LOADING_TAGS, loading: false })
+    }
   }
 }
 
-// Set success
-export const setSuccess = (
-  successMessage: string
+// Update a tag with API call
+export const updateTag = (
+  id: string,
+  payload: Tag
 ): ThunkAction<void, RootState, null, DefaultAction> => {
-  return (dispatch) => {
-    toast.success(successMessage)
-    dispatch({
-      type: SET_SUCCESS,
-      success: successMessage,
-    })
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SET_LOADING_TAGS, loading: true })
+
+      const result = await updateOneById(id, payload)
+      toast.success(result.data.message)
+    } catch (e) {
+      toast.error(e.message)
+      dispatch({
+        type: SET_ERROR_TAGS,
+        error: e.message,
+      })
+    } finally {
+      dispatch({ type: SET_LOADING_TAGS, loading: false })
+    }
   }
 }
