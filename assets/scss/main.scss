@@ -1,9 +1,19 @@
+$successColor: rgb(52, 211, 153);
+$errorColor: rgb(248, 113, 113);
 h2 {
     @apply text-gray-800;
 }
 
 p {
     @apply text-gray-700;
+}
+
+.Toastify__toast--success {
+    background: $successColor !important;
+}
+
+.Toastify__toast--error {
+    background: $errorColor !important;
 }
 
 .btn {

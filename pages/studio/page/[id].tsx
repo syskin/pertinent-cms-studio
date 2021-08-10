@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 
@@ -12,6 +12,8 @@ import Sidebar from '../../../components/interface/Sidebar'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { getTags } from '../../../store/actions/tags'
+import { TAG_PAGE } from '../../../types/tags'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
@@ -21,12 +23,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const dispatch = useDispatch()
+  const [isPageLoaded, setIsPageLoaded] = useState(false)
 
   useEffect(() => {
     dispatch(getActivePage(params.id))
+    setIsPageLoaded(true)
   }, [dispatch, params.id])
 
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
+  const { activePage } = useSelector((state: RootState) => state.pages)
+
+  useEffect(() => {
+    if (isPageLoaded && activePage && activePage.id) {
+      dispatch(
+        getTags({
+          wrapperType: TAG_PAGE,
+          wrapperId: activePage.id,
+        })
+      )
+    }
+  }, [dispatch, activePage])
+
   const baseMainContentWrapper = `flex-1 min-h-screen bg-gray-500 transform duration-300 mb-52 pt-12`
   return (
     <>

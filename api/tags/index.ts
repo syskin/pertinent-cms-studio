@@ -4,9 +4,20 @@ import { Tag } from '../../types/tags'
 
 const tagsEndpoints = pertinentConfig.dashboard.endpoints.tags
 
-export const getByFilter = (filter: Tag): Promise<ResponseType> => {
+export const getByFilter = (filter: any): Promise<ResponseType> => {
   const endpoint = tagsEndpoints.get
-  return httpMethods.post(endpoint.path, filter)
+
+  let stringifiedFilter = ``
+
+  // Should be refacorize as utils function
+  Object.keys(filter).map((key) => {
+    stringifiedFilter += stringifiedFilter.length > 0 ? `&` : ``
+    if (filter[key]) {
+      stringifiedFilter += `${key}=${filter[key]}`
+    }
+  })
+
+  return httpMethods.get(`${endpoint.path}?${stringifiedFilter}`)
 }
 
 export const create = (payload: Tag): Promise<ResponseType> => {

@@ -5,6 +5,26 @@ import { toast } from 'react-toastify'
 import { Tag } from '../../types/tags'
 import { create, updateOneById, getByFilter } from '../../api/tags'
 
+// Get tags by filter
+export const getTags = (filter: any): ThunkAction<void, RootState, null, DefaultAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SET_LOADING_TAGS, loading: true })
+
+      const result = await getByFilter(filter)
+      toast.success(result.data.message)
+    } catch (e) {
+      toast.error(e.message)
+      dispatch({
+        type: SET_ERROR_TAGS,
+        error: e.message,
+      })
+    } finally {
+      dispatch({ type: SET_LOADING_TAGS, loading: false })
+    }
+  }
+}
+
 // setActiveTag
 export const setActiveTag = (filter: Tag): ThunkAction<void, RootState, null, DefaultAction> => {
   return async (dispatch) => {
