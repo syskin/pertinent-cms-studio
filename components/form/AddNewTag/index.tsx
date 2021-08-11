@@ -14,8 +14,8 @@ const AddNewTag: React.FC<AddNewTagProps> = ({ wrapperType }) => {
   const onSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault()
     const exampleTag: Tag = {
-      wrapperType,
-      wrapperId: activePage.id,
+      wrapper_type: wrapperType,
+      wrapper_id: activePage.id,
       type: TAG_DIV,
       order: 0,
       depth: 0,

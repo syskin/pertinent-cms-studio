@@ -42,7 +42,7 @@ const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServer
         })
       )
     }
-  }, [dispatch, activePage])
+  }, [dispatch, activePage, isPageLoaded])
 
   const baseMainContentWrapper = `flex-1 min-h-screen bg-gray-500 transform duration-300 mb-52 pt-12`
   return (

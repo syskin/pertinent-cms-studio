@@ -4,6 +4,7 @@ import { DefaultAction, SET_ERROR_TAGS, SET_LOADING_TAGS } from '../types/tags'
 import { toast } from 'react-toastify'
 import { Tag } from '../../types/tags'
 import { create, updateOneById, getByFilter } from '../../api/tags'
+import { buildTagsTree } from '../../services/tagsManager'
 
 // Get tags by filter
 export const getTags = (filter: any): ThunkAction<void, RootState, null, DefaultAction> => {
@@ -12,7 +13,8 @@ export const getTags = (filter: any): ThunkAction<void, RootState, null, Default
       dispatch({ type: SET_LOADING_TAGS, loading: true })
 
       const result = await getByFilter(filter)
-      toast.success(result.data.message)
+
+      console.log(buildTagsTree(result?.data))
     } catch (e) {
       toast.error(e.message)
       dispatch({
