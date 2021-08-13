@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk'
 import { RootState } from '..'
-import { DefaultAction, SET_ERROR_TAGS, SET_LOADING_TAGS } from '../types/tags'
+import { DefaultAction, SET_ERROR_TAGS, SET_LOADING_TAGS, SET_TAGS_TREE } from '../types/tags'
 import { toast } from 'react-toastify'
 import { Tag } from '../../types/tags'
 import { create, updateOneById, getByFilter } from '../../api/tags'
@@ -13,8 +13,7 @@ export const getTags = (filter: any): ThunkAction<void, RootState, null, Default
       dispatch({ type: SET_LOADING_TAGS, loading: true })
 
       const result = await getByFilter(filter)
-
-      console.log(buildTagsTree(result?.data))
+      dispatch({ type: SET_TAGS_TREE, tree: buildTagsTree(result?.data) })
     } catch (e) {
       toast.error(e.message)
       dispatch({

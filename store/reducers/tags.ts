@@ -2,6 +2,7 @@ import {
   DefaultAction,
   DefaultState,
   UPDATE_ONE_TAG_BY_ID,
+  SET_TAGS_TREE,
   CREATE_TAG,
   DELETE_ONE_TAG_BY_ID,
   SET_ERROR_TAGS,
@@ -22,6 +23,11 @@ const defaultReducer = (state = initialState, action: DefaultAction): DefaultSta
     case UPDATE_ONE_TAG_BY_ID:
       return {
         ...state,
+      }
+    case SET_TAGS_TREE:
+      return {
+        ...state,
+        tree: action.tree,
       }
     case CREATE_TAG:
       return {
