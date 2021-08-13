@@ -16,6 +16,7 @@ const AddNewTag: React.FC<AddNewTagProps> = ({ wrapperType }) => {
     const exampleTag: Tag = {
       wrapper_type: wrapperType,
       wrapper_id: activePage.id,
+      parent_id: null,
       type: TAG_DIV,
       order: 0,
       depth: 0,

@@ -11,7 +11,7 @@ export const SET_TAGS_TREE = 'SET_TAGS_TREE'
 
 export interface DefaultState {
   tags: Tag[]
-  tree?: Tag[] | null
+  tree?: Tag[] | undefined
   loading: boolean
   error: string
   success: string
@@ -19,7 +19,7 @@ export interface DefaultState {
 
 interface setTagsTree {
   type: typeof SET_TAGS_TREE
-  tree: Tag[] | null
+  tree: Tag[] | undefined
 }
 
 interface updateOneTagById {

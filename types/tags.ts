@@ -8,7 +8,7 @@ export interface Tag {
   id?: number
   wrapper_type: typeof TAG_COMPONENT | typeof TAG_PAGE
   wrapper_id: string
-  parent_id?: number
+  parent_id?: number | null
   content?: string
   order: number
   depth: number
