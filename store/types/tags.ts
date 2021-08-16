@@ -7,9 +7,11 @@ export const SET_SUCCESS_TAGS = 'SET_SUCCESS_TAGS'
 export const CREATE_TAG = 'CREATE_TAG'
 export const UPDATE_ONE_TAG_BY_ID = 'UPDATE_ONE_TAG_BY_ID'
 export const DELETE_ONE_TAG_BY_ID = 'DELETE_ONE_TAG_BY_ID'
-export const SET_TAGS_TREE = 'SET_TAGS_TREE'
+export const SET_TAGS = 'SET_TAGS'
+export const SET_ACTIVE_TAG = 'SET_ACTIVE_TAG'
 
 export interface DefaultState {
+  activeTag?: Tag
   flat: Tag[]
   tree?: Tag[] | undefined
   loading: boolean
@@ -17,8 +19,13 @@ export interface DefaultState {
   success: string
 }
 
-interface setTagsTree {
-  type: typeof SET_TAGS_TREE
+interface setActiveTag {
+  type: typeof SET_ACTIVE_TAG
+  tag: Tag
+}
+
+interface setTags {
+  type: typeof SET_TAGS
   tree: Tag[] | undefined
   flat: Tag[] | []
 }
@@ -60,7 +67,8 @@ export type DefaultAction =
   | updateOneTagById
   | deleteOneTagById
   | createTag
-  | setTagsTree
+  | setActiveTag
+  | setTags
   | setLoading
   | setError
   | setSuccess

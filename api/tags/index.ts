@@ -31,8 +31,8 @@ export const updateOneById = (id: string, payload: Tag): Promise<ResponseType> =
   return httpMethods.put(endpoint.path, payload)
 }
 
-export const deleteOneById = (id: string): Promise<ResponseType> => {
+export const deleteOneById = (id: number): Promise<ResponseType> => {
   const endpoint = { ...tagsEndpoints.deleteOneById }
-  endpoint.path = endpoint.path.replace(':id', id)
+  endpoint.path = endpoint.path.replace(':id', id.toString())
   return httpMethods.delete(endpoint.path)
 }

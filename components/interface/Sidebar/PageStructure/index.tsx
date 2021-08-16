@@ -1,17 +1,24 @@
 import AddNewTag from '../../../form/AddNewTag'
-import { Tag, TAG_DIV, TAG_PAGE, TAG_SPAN } from '../../../../types/tags'
-import { useSelector } from 'react-redux'
+import { Tag, TAG_PAGE } from '../../../../types/tags'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
+import { deleteTag, setActiveTag } from '../../../../store/actions/tags'
+import { Page } from '../../../../types/pages'
 
 const PageStructure: React.FC = () => {
-  const { tree } = useSelector((state: RootState) => state.tags)
+  const { tree, activeTag } = useSelector((state: RootState) => state.tags)
+  const { activePage } = useSelector((state: RootState) => state.pages)
   return (
     <div>
       <div>Component tags structure</div>
 
-      <TagsLoop tags={tree} />
+      <div className="overflow-y-auto h-72">
+        <TagsLoop tags={tree} />
+      </div>
 
-      <AddNewTag wrapperType={TAG_PAGE} />
+      <AddNewTag wrapperType={TAG_PAGE} wrapperId={activePage.id} depth={-1} />
+
+      {addChild(activeTag, activePage)}
     </div>
   )
 }
@@ -21,24 +28,55 @@ interface TagsLoopProps {
 }
 
 const TagsLoop: React.FC<TagsLoopProps> = ({ tags }) => {
+  const dispatch = useDispatch()
+  const { activeTag } = useSelector((state: RootState) => state.tags)
+  const handleSelect = (tagId: number | undefined): void => {
+    if (tagId) {
+      dispatch(setActiveTag(tagId))
+    }
+  }
+  const handleDelete = (tagId: number | undefined): void => {
+    if (tagId) {
+      dispatch(deleteTag(tagId))
+    }
+  }
+  const baseButtonStyle = ``
   return (
     <div className="flex flex-col ml-2">
       {tags?.map((tag, index) => {
-        switch (tag.type) {
-          case TAG_DIV:
-            return <div key={`${index}_div_${tag.depth}_${tag.order}`}>Div{getChildren(tag)}</div>
-          case TAG_SPAN:
-            return (
-              <span key={`${index}_span_${tag.depth}_${tag.order}`}>Span{getChildren(tag)}</span>
-            )
-        }
+        return (
+          <div
+            className={
+              tag.id === activeTag?.id
+                ? `bg-green-500 ${baseButtonStyle}`
+                : `bg-gray-100 ${baseButtonStyle}`
+            }
+            key={`tag_${index}`}
+          >
+            <button onClick={() => handleSelect(tag?.id)}>Select {tag.id}</button>
+            <button onClick={() => handleDelete(tag?.id)}>Delete</button>
+            {getChildren(tag)}
+          </div>
+        )
       })}
     </div>
   )
 }
 
-function getChildren(tag: Tag) {
+function getChildren(tag: Tag): JSX.Element | undefined {
   if (tag && tag.children && tag.children.length > 0) return <TagsLoop tags={tag.children} />
+}
+
+function addChild(activeTag: Tag | undefined, activePage: Page): JSX.Element | undefined {
+  if (activeTag && activeTag.id)
+    return (
+      <AddNewTag
+        wrapperType={TAG_PAGE}
+        wrapperId={activePage.id}
+        depth={activeTag.depth}
+        parentId={activeTag.id}
+      />
+    )
 }
 
 export default PageStructure
