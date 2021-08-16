@@ -5,6 +5,18 @@ export const buildTagsTree = (tags: Tag[] | []): Tag[] => {
   return iteration(0, tags)
 }
 
+export const updateOneTag = (tag: Tag, tags: Tag[]): Tag[] => {
+  // check order and depth for this parentId here
+  // Update the tag correctly
+  return tags
+}
+
+export const addNewTag = (tag: Tag, tags: Tag[]): Tag[] => {
+  // check order and depth for this parentId here
+  tags.push(tag)
+  return tags
+}
+
 function iteration(depth = 0, tags: Tag[]) {
   const orderedTags: Tag[] = sortArrayAsc(
     tags.filter((tag) => tag.depth === depth),

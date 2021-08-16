@@ -11,7 +11,7 @@ import {
 } from '../types/tags'
 
 const initialState: DefaultState = {
-  tags: [],
+  flat: [],
   loading: false,
   error: '',
   success: '',
@@ -21,21 +21,13 @@ const defaultReducer = (state = initialState, action: DefaultAction): DefaultSta
   if (!action || !action.type) return state
   switch (action.type) {
     case UPDATE_ONE_TAG_BY_ID:
-      return {
-        ...state,
-      }
+    case DELETE_ONE_TAG_BY_ID:
+    case CREATE_TAG:
     case SET_TAGS_TREE:
       return {
         ...state,
         tree: action.tree,
-      }
-    case CREATE_TAG:
-      return {
-        ...state,
-      }
-    case DELETE_ONE_TAG_BY_ID:
-      return {
-        ...state,
+        flat: action.flat,
       }
     case SET_LOADING_TAGS:
       return {

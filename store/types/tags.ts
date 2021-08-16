@@ -10,7 +10,7 @@ export const DELETE_ONE_TAG_BY_ID = 'DELETE_ONE_TAG_BY_ID'
 export const SET_TAGS_TREE = 'SET_TAGS_TREE'
 
 export interface DefaultState {
-  tags: Tag[]
+  flat: Tag[]
   tree?: Tag[] | undefined
   loading: boolean
   error: string
@@ -20,20 +20,25 @@ export interface DefaultState {
 interface setTagsTree {
   type: typeof SET_TAGS_TREE
   tree: Tag[] | undefined
+  flat: Tag[] | []
 }
 
 interface updateOneTagById {
   type: typeof UPDATE_ONE_TAG_BY_ID
-  tag: Tag
+  tree: Tag[] | undefined
+  flat: Tag[] | []
 }
 
 interface deleteOneTagById {
   type: typeof DELETE_ONE_TAG_BY_ID
+  tree: Tag[] | undefined
+  flat: Tag[] | []
 }
 
 interface createTag {
   type: typeof CREATE_TAG
-  tag: Tag
+  tree: Tag[] | undefined
+  flat: Tag[] | []
 }
 
 interface setLoading {

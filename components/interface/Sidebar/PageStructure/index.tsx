@@ -5,7 +5,6 @@ import { RootState } from '../../../../store'
 
 const PageStructure: React.FC = () => {
   const { tree } = useSelector((state: RootState) => state.tags)
-  console.log(tree)
   return (
     <div>
       <div>Component tags structure</div>
