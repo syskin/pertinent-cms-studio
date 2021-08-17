@@ -17,15 +17,20 @@ export const addNewTag = (tag: Tag, tags: Tag[]): Tag[] => {
   return tags
 }
 
-function iteration(depth = 0, tags: Tag[]) {
-  const orderedTags: Tag[] = sortArrayAsc(
-    tags.filter((tag) => tag.depth === depth),
-    'order'
-  )
+function iteration(depth = 0, tags: Tag[], parentId: number | undefined = undefined) {
+  let filteredTags: Tag[] = []
+
+  if (parentId) {
+    filteredTags = tags.filter((tag) => tag.parent_id === parentId && tag.depth === depth)
+  } else {
+    filteredTags = tags.filter((tag) => tag.depth === depth)
+  }
+
+  const orderedTags: Tag[] = sortArrayAsc(filteredTags, 'order')
 
   orderedTags.map((tag) => {
     if (hasChild(tag.id, tags)) {
-      tag.children = iteration(depth + 1, tags)
+      tag.children = iteration(depth + 1, tags, tag.id)
     }
   })
   return orderedTags
