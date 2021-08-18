@@ -9,6 +9,7 @@ import { getActivePage } from '../../../store/actions/pages'
 import Modal from '../../../components/interface/Modal'
 import MenuHeader from '../../../components/interface/Menu/MenuHeader'
 import Sidebar from '../../../components/interface/Sidebar'
+import TagsTree from '../../../components/tagsTree'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -44,7 +45,7 @@ const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServer
     }
   }, [dispatch, activePage, isPageLoaded])
 
-  const baseMainContentWrapper = `flex-1 min-h-screen bg-gray-500 transform duration-300 mb-52 pt-12`
+  const baseMainContentWrapper = `flex-1 min-h-screen transform duration-300 mb-52 pt-12`
   return (
     <>
       <Head>
@@ -69,7 +70,7 @@ const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServer
             isSidebarOpen ? `${baseMainContentWrapper} pr-72` : `${baseMainContentWrapper}`
           }
         >
-          Main content
+          <TagsTree isStudio={true} />
         </div>
         <Sidebar />
         <Modal />
