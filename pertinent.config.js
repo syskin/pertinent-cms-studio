@@ -13,7 +13,7 @@ module.exports = {
                     path: '/pertinent/pages/:id',
                 },
                 getOneBySlug: {
-                    path: '/pertinent/pages/:slug',
+                    path: '/pertinent/pages/slug/:slug',
                 },
                 updateOneById: {
                     path: '/pertinent/pages/:id',

@@ -20,9 +20,9 @@ export const getOneById = (id: string): Promise<ResponseType> => {
   return httpMethods.get(endpoint.path)
 }
 
-export const getOneBySlug = (slug: string): Promise<ResponseType> => {
+export const getOneBySlug = (slug: string | string[] | undefined): Promise<ResponseType> => {
   const endpoint = pagesEndpoints.getOneBySlug
-  endpoint.path = endpoint.path.replace(':slug', slug)
+  endpoint.path = endpoint.path.replace(':slug', `${slug}`)
   return httpMethods.get(endpoint.path)
 }
 
