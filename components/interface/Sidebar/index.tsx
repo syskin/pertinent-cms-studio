@@ -7,6 +7,7 @@ import Editor from '@monaco-editor/react'
 
 import PageConfiguration from '../../form/PageConfiguration'
 import PageStructure from './PageStructure'
+import { setActiveTag } from '../../../store/actions/tags'
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const Sidebar: React.FC = () => {
     const handleClick = (event: MouseEvent): void => {
       if (sidebar?.current && !sidebar?.current?.contains(event.target as Node)) {
         dispatch(updateState(!isSidebarOpen))
+        dispatch(setActiveTag(undefined))
       }
     }
     window.addEventListener('click', handleClick)

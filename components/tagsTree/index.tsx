@@ -9,8 +9,6 @@ interface TagsTreeProps {
 const TagsTree: React.FC<TagsTreeProps> = () => {
   const { tree, loading } = useSelector((state: RootState) => state.tags)
 
-  console.log(tree)
-
   if (loading) {
     return <div>It is loading...</div>
   }
@@ -30,7 +28,6 @@ const TagsManager: React.FC<TagsManagerProps> = ({ tags }) => {
 
   return (
     <>
-      {' '}
       {tags?.map((tag, index) => {
         const key = `key_${index}_${tag.id}_${tag.type}`
         switch (tag?.type) {
