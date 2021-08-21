@@ -25,9 +25,9 @@ export const create = (payload: Tag): Promise<ResponseType> => {
   return httpMethods.post(endpoint.path, payload)
 }
 
-export const updateOneById = (id: string, payload: Tag): Promise<ResponseType> => {
+export const updateOneById = (id: number, payload: Tag): Promise<ResponseType> => {
   const endpoint = { ...tagsEndpoints.updateOneById }
-  endpoint.path = endpoint.path.replace(':id', id)
+  endpoint.path = endpoint.path.replace(':id', id.toString())
   return httpMethods.put(endpoint.path, payload)
 }
 

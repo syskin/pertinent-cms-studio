@@ -62,8 +62,11 @@ export const deleteTag = (tagId: number): ThunkAction<void, RootState, null, Def
     try {
       dispatch({ type: SET_LOADING_TAGS, loading: true })
       await deleteOneById(tagId)
-      const tags = getState().tags?.flat.filter((tag) => tag.id !== tagId)
-      dispatch({ type: DELETE_ONE_TAG_BY_ID, flat: tags, tree: buildTagsTree(tags) })
+      const tags = getState().tags?.flat
+      const filteredTags = tags.filter((tag) => tag.id !== tagId)
+      const tree = buildTagsTree(filteredTags)
+      dispatch({ type: DELETE_ONE_TAG_BY_ID, flat: filteredTags, tree })
+      dispatch({ type: SET_ACTIVE_TAG, tag: undefined })
     } catch (e) {
       toast.error(e.message)
       dispatch({
@@ -89,7 +92,6 @@ export const createTag = (payload: Tag): ThunkAction<void, RootState, null, Defa
 
       dispatch({ type: CREATE_TAG, flat: tags, tree: buildTagsTree(tags) })
       toast.success(result.data.message)
-      console.log(getState().tags)
     } catch (e) {
       toast.error(e.message)
       dispatch({
@@ -104,11 +106,13 @@ export const createTag = (payload: Tag): ThunkAction<void, RootState, null, Defa
 
 // Update a tag
 export const updateTag = (
-  id: string,
+  id: number | undefined,
   payload: Tag
 ): ThunkAction<void, RootState, null, DefaultAction> => {
   return async (dispatch, getState) => {
     try {
+      if (!id) throw new Error('Tag id is missing')
+
       dispatch({ type: SET_LOADING_TAGS, loading: true })
 
       /*
@@ -117,11 +121,11 @@ export const updateTag = (
       */
 
       const result = await updateOneById(id, payload)
-      let tags = getState().tags?.flat
+      const tags = getState().tags?.flat
+      const tagToUpdate = tags.filter((tag) => tag.id === id)
+      const updatedTags = updateOneTag({ ...tagToUpdate[0], ...payload }, tags)
 
-      tags = updateOneTag(result.data.tag, tags)
-
-      dispatch({ type: UPDATE_ONE_TAG_BY_ID, flat: tags, tree: buildTagsTree(tags) })
+      dispatch({ type: UPDATE_ONE_TAG_BY_ID, flat: updatedTags, tree: buildTagsTree(updatedTags) })
       toast.success(result.data.message)
     } catch (e) {
       toast.error(e.message)

@@ -21,7 +21,7 @@ export interface DefaultState {
 
 interface setActiveTag {
   type: typeof SET_ACTIVE_TAG
-  tag: Tag
+  tag: Tag | undefined
 }
 
 interface setTags {

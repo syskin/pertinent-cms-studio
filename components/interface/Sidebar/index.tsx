@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
     if (!isSidebarOpen) return
     const handleClick = (event: MouseEvent): void => {
       if (sidebar?.current && !sidebar?.current?.contains(event.target as Node)) {
-        dispatch(updateState(!isSidebarOpen))
+        // dispatch(updateState(!isSidebarOpen))
         dispatch(setActiveTag(undefined))
       }
     }

@@ -1,3 +1,4 @@
+import { buildTagsTree } from '../../services/tagsManager'
 import {
   DefaultAction,
   DefaultState,
@@ -27,7 +28,7 @@ const defaultReducer = (state = initialState, action: DefaultAction): DefaultSta
     case SET_TAGS:
       return {
         ...state,
-        tree: action.tree,
+        tree: buildTagsTree(action.flat),
         flat: action.flat,
       }
     case SET_ACTIVE_TAG:

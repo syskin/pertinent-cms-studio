@@ -3,14 +3,15 @@ import { sortArrayAsc } from '../../utils'
 
 export const buildTagsTree = (tags: Tag[] | [] | undefined): Tag[] => {
   if (!tags) return []
-  console.log(iteration(0, tags))
   return iteration(0, tags)
 }
 
 export const updateOneTag = (tag: Tag, tags: Tag[]): Tag[] => {
+  const updatedTags = tags.filter((tagElement) => tag.id !== tagElement.id)
+  updatedTags.push(tag)
   // check order and depth for this parentId here
   // Update the tag correctly
-  return tags
+  return updatedTags
 }
 
 export const addNewTag = (tag: Tag, tags: Tag[]): Tag[] => {
@@ -31,6 +32,9 @@ function iteration(depth = 0, tags: Tag[], parentId: number | undefined = undefi
   const orderedTags: Tag[] = sortArrayAsc(filteredTags, 'order')
 
   orderedTags.map((tag) => {
+    // Ensure no children has already been declared
+    tag.children = []
+
     if (hasChild(tag.id, tags)) {
       tag.children = iteration(depth + 1, tags, tag.id)
     }

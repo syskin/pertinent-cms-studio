@@ -33,7 +33,7 @@ const TagsManager: React.FC<TagsManagerProps> = ({ tags }) => {
             )
           default:
             return (
-              <div key={key}>
+              <div className="ml-2" key={key}>
                 <TagContent tag={tag} />
               </div>
             )
@@ -51,7 +51,11 @@ const TagContent: React.FC<TagContentProps> = ({ tag }) => {
     return <TagsManager tags={tag.children} />
   }
 
-  return <>{tag.type}</>
+  return (
+    <>
+      {tag.type} - {tag.id}
+    </>
+  )
 }
 
 export default TagsTree
