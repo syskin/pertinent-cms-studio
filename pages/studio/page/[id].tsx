@@ -25,6 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const dispatch = useDispatch()
   const [isPageLoaded, setIsPageLoaded] = useState(false)
+  const { tree } = useSelector((state: RootState) => state.tags)
 
   useEffect(() => {
     dispatch(getActivePage(params.id))
@@ -70,7 +71,7 @@ const Page: React.FC = ({ params }: InferGetServerSidePropsType<typeof getServer
             isSidebarOpen ? `${baseMainContentWrapper} pr-72` : `${baseMainContentWrapper}`
           }
         >
-          <TagsTree isStudio={true} />
+          <TagsTree isStudio={true} tagsTree={tree} />
         </div>
         <Sidebar />
         <Modal />

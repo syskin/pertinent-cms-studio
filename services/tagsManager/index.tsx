@@ -1,7 +1,9 @@
 import { Tag } from '../../types/tags'
 import { sortArrayAsc } from '../../utils'
 
-export const buildTagsTree = (tags: Tag[] | []): Tag[] => {
+export const buildTagsTree = (tags: Tag[] | [] | undefined): Tag[] => {
+  if (!tags) return []
+  console.log(iteration(0, tags))
   return iteration(0, tags)
 }
 

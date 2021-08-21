@@ -1,28 +1,22 @@
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store'
 import { Tag, TAG_SPAN } from '../../types/tags'
 
 interface TagsTreeProps {
   isStudio?: boolean
-}
-
-const TagsTree: React.FC<TagsTreeProps> = () => {
-  const { tree, loading } = useSelector((state: RootState) => state.tags)
-
-  if (loading) {
-    return <div>It is loading...</div>
-  }
-
-  return (
-    <div className="flex flex-col mt-6">
-      <TagsManager tags={tree} />
-    </div>
-  )
+  tagsTree: Tag[] | undefined
 }
 
 interface TagsManagerProps {
   tags: Tag[] | undefined
 }
+
+const TagsTree: React.FC<TagsTreeProps> = ({ tagsTree }) => {
+  return (
+    <>
+      <TagsManager tags={tagsTree} />
+    </>
+  )
+}
+
 const TagsManager: React.FC<TagsManagerProps> = ({ tags }) => {
   if (!tags) return <div>No tags</div>
 

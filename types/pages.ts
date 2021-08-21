@@ -7,5 +7,4 @@ export interface Page {
   description: string
   activeTag?: Tag
   tags?: Tag[]
-  tagsTree?: Tag[]
 }

@@ -1,5 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { getOneBySlug } from '../api/pages'
+import { Page } from '../types/pages'
+
+import TagsTree from '../components/tagsTree'
+import { buildTagsTree } from '../services/tagsManager'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const page = await getOneBySlug(context?.params?.route)
@@ -21,9 +25,15 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
 interface RouteProps {
   slug: string
+  page: Page
 }
 
-const Route: React.FC<RouteProps> = ({ slug }) => {
-  return <div>{slug}</div>
+const Route: React.FC<RouteProps> = ({ page }) => {
+  const tagsTree = buildTagsTree(page?.tags)
+  return (
+    <div>
+      <TagsTree isStudio={false} tagsTree={tagsTree} />
+    </div>
+  )
 }
 export default Route
