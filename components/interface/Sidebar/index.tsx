@@ -12,6 +12,7 @@ import { setActiveTag } from '../../../store/actions/tags'
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar)
+  const { activeTag } = useSelector((state: RootState) => state.tags)
   const baseTransformDuration = `transform duration-300`
   const baseWrapperStyle = `${baseTransformDuration} flex-initial h-screen bg-gray-100 fixed right-0 shadow-sm z-20`
   const baseButtonStateStyle = `${baseTransformDuration} absolute right-1 bottom-1 rounded-lg bg-gray-100 shadow-sm px-2 py-1 m-2`
@@ -39,13 +40,13 @@ const Sidebar: React.FC = () => {
     if (!isSidebarOpen) return
     const handleClick = (event: MouseEvent): void => {
       if (sidebar?.current && !sidebar?.current?.contains(event.target as Node)) {
-        // dispatch(updateState(!isSidebarOpen))
         dispatch(setActiveTag(undefined))
+        if (!activeTag) dispatch(updateState(!isSidebarOpen))
       }
     }
     window.addEventListener('click', handleClick)
     return () => window.removeEventListener('click', handleClick)
-  }, [isSidebarOpen, dispatch])
+  }, [isSidebarOpen, dispatch, activeTag])
 
   const handleSidebar = (): void => {
     dispatch(updateState(!isSidebarOpen))

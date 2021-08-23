@@ -84,13 +84,16 @@ export const createTag = (payload: Tag): ThunkAction<void, RootState, null, Defa
   return async (dispatch, getState) => {
     try {
       dispatch({ type: SET_LOADING_TAGS, loading: true })
+      let tags = getState().tags?.flat
+
+      payload.order = tags.filter((tag) => tag.depth === payload.depth).length
 
       const result = await create(payload)
-      let tags = getState().tags?.flat
 
       tags = addNewTag(result.data.tag, tags)
 
       dispatch({ type: CREATE_TAG, flat: tags, tree: buildTagsTree(tags) })
+      dispatch({ type: SET_ACTIVE_TAG, tag: result.data.tag })
       toast.success(result.data.message)
     } catch (e) {
       toast.error(e.message)
