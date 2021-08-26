@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { closeModal } from '../../../store/actions/modal'
 import { createTag, updateTag } from '../../../store/actions/tags'
-import { Tag, TAG_COMPONENT, TAG_DIV, TAG_PAGE } from '../../../types/tags'
+import { Tag, TAG_COMPONENT, TAG_DIV, TAG_SPAN, TAG_PAGE } from '../../../types/tags'
 
 interface TagConfigurationFormProps {
   type: string
@@ -20,6 +20,7 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
 
   const [formData, setFormData] = useState({
     order: 0,
+    type: TAG_DIV,
   })
   const [hasBeenSubmit, setHasBeenSubmit] = useState(false)
 
@@ -28,6 +29,7 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
   useEffect(() => {
     setFormData({
       order: 0,
+      type: TAG_DIV,
     })
     if (type !== 'create' && activeTag) {
       setFormData({ ...activeTag })
@@ -42,7 +44,7 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
   }, [dispatch, loading, hasBeenSubmit])
 
   const handleOnChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ): void => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
   }
@@ -52,10 +54,11 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
 
     const target = event.target as typeof event.target & {
       order: { value: number }
+      type: { value: typeof TAG_DIV | typeof TAG_SPAN }
     }
 
     const order = target.order.value
-    const tag_type = TAG_DIV
+    const tag_type = target.type.value
 
     const payload: Tag = { order, depth: 0, wrapper_id, wrapper_type, type: tag_type }
     if (activeTag) payload.depth = activeTag.depth
@@ -81,6 +84,13 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
           min="0"
           onChange={handleOnChange}
         />
+      </label>
+      <label>
+        Type:
+        <select name="type" onBlur={handleOnChange} value={formData.type}>
+          <option value={TAG_DIV}>div</option>
+          <option value={TAG_SPAN}>span</option>
+        </select>
       </label>
       <button type="submit" disabled={loading}>
         Submit

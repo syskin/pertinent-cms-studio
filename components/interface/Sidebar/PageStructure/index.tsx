@@ -1,4 +1,3 @@
-import AddNewTag from '../../../form/AddNewTag'
 import { Tag, TAG_PAGE } from '../../../../types/tags'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
@@ -18,8 +17,6 @@ const PageStructure: React.FC = () => {
       </div>
 
       <TagConfiguration type={`create`} wrapper_type={TAG_PAGE} wrapper_id={activePage.id} />
-      <AddNewTag wrapperType={TAG_PAGE} wrapperId={activePage.id} depth={-1} />
-
       {addChild(activeTag, activePage)}
     </div>
   )
@@ -74,12 +71,6 @@ function addChild(activeTag: Tag | undefined, activePage: Page): JSX.Element | u
     return (
       <div>
         <TagConfiguration type={`edit`} wrapper_type={TAG_PAGE} wrapper_id={activePage.id} />
-        <AddNewTag
-          wrapperType={TAG_PAGE}
-          wrapperId={activePage.id}
-          depth={activeTag.depth}
-          parentId={activeTag.id}
-        />
       </div>
     )
 }
