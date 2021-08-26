@@ -87,7 +87,7 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
       </label>
       <label>
         Type:
-        <select name="type" onBlur={handleOnChange} value={formData.type}>
+        <select name="type" onChange={handleOnChange} onBlur={handleOnChange} value={formData.type}>
           <option value={TAG_DIV}>div</option>
           <option value={TAG_SPAN}>span</option>
         </select>
