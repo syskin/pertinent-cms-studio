@@ -2,12 +2,10 @@ import { Tag, TAG_PAGE } from '../../../../types/tags'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import { deleteTag, setActiveTag } from '../../../../store/actions/tags'
-import { Page } from '../../../../types/pages'
 import TagConfiguration from '../../../form/TagConfiguration'
 
 const PageStructure: React.FC = () => {
   const { tree, activeTag } = useSelector((state: RootState) => state.tags)
-  const { activePage } = useSelector((state: RootState) => state.pages)
   return (
     <div>
       <div>Component tags structure</div>
@@ -16,8 +14,8 @@ const PageStructure: React.FC = () => {
         <TagsLoop tags={tree} />
       </div>
 
-      <TagConfiguration type={`create`} wrapper_type={TAG_PAGE} wrapper_id={activePage.id} />
-      {addChild(activeTag, activePage)}
+      <TagConfiguration type={`create`} wrapper_type={TAG_PAGE} />
+      {addChild(activeTag)}
     </div>
   )
 }
@@ -66,11 +64,11 @@ function getChildren(tag: Tag): JSX.Element | undefined {
   if (tag && tag.children && tag.children.length > 0) return <TagsLoop tags={tag.children} />
 }
 
-function addChild(activeTag: Tag | undefined, activePage: Page): JSX.Element | undefined {
+function addChild(activeTag: Tag | undefined): JSX.Element | undefined {
   if (activeTag && activeTag.id)
     return (
       <div>
-        <TagConfiguration type={`edit`} wrapper_type={TAG_PAGE} wrapper_id={activePage.id} />
+        <TagConfiguration type={`edit`} wrapper_type={TAG_PAGE} />
       </div>
     )
 }

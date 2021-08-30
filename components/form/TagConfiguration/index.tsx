@@ -8,14 +8,9 @@ import { Tag, TAG_COMPONENT, TAG_DIV, TAG_SPAN, TAG_PAGE } from '../../../types/
 interface TagConfigurationFormProps {
   type: string
   wrapper_type: typeof TAG_COMPONENT | typeof TAG_PAGE
-  wrapper_id: string
 }
 
-const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
-  type,
-  wrapper_type,
-  wrapper_id,
-}) => {
+const TagConfiguration: React.FC<TagConfigurationFormProps> = ({ type, wrapper_type }) => {
   const dispatch = useDispatch()
 
   const [formData, setFormData] = useState({
@@ -25,7 +20,9 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
   const [hasBeenSubmit, setHasBeenSubmit] = useState(false)
 
   const { activeTag, loading } = useSelector((state: RootState) => state.tags)
+  const { activePage } = useSelector((state: RootState) => state.pages)
 
+  // Init form data
   useEffect(() => {
     setFormData({
       order: 0,
@@ -36,6 +33,7 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
     }
   }, [activeTag, type])
 
+  // Update loading state on submit
   useEffect(() => {
     if (hasBeenSubmit && !loading) {
       dispatch(closeModal())
@@ -59,6 +57,11 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({
 
     const order = target.order.value
     const tag_type = target.type.value
+
+    let wrapper_id = ``
+    if (wrapper_type === TAG_PAGE && activePage && activePage.id) {
+      wrapper_id = activePage.id
+    }
 
     const payload: Tag = { order, depth: 0, wrapper_id, wrapper_type, type: tag_type }
     if (activeTag) payload.depth = activeTag.depth

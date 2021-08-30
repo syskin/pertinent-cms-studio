@@ -2,11 +2,20 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../store'
 import { closeModal } from '../../../store/actions/modal'
-import { ADD_PAGE, DELETE_PAGE, EDIT_SITE, FormTypes } from '../../../store/types/modal'
+import {
+  ADD_PAGE,
+  ADD_TAG_PAGE,
+  DELETE_PAGE,
+  EDIT_SITE,
+  EDIT_TAG_PAGE,
+  FormTypes,
+} from '../../../store/types/modal'
 
 import PageConfiguration from '../../form/PageConfiguration'
 import DeletePage from '../../form/DeletePage'
 import EditSite from '../../form/EditSite'
+import { TAG_PAGE } from '../../../types/tags'
+import TagConfiguration from '../../form/TagConfiguration'
 
 const Modal: React.FC = () => {
   const dispatch = useDispatch()
@@ -52,7 +61,7 @@ const sizeModal = (type: FormTypes): string | null => {
     case EDIT_SITE:
       return `h-4/5 w-4/5`
     default:
-      return null
+      return `h-3/5 w-4/5`
   }
 }
 
@@ -68,6 +77,10 @@ const getForm: React.FC<formProps> = ({ type }) => {
       return <DeletePage />
     case EDIT_SITE:
       return <EditSite />
+    case ADD_TAG_PAGE:
+      return <TagConfiguration type="create" wrapper_type={TAG_PAGE} />
+    case EDIT_TAG_PAGE:
+      return <TagConfiguration type="edit" wrapper_type={TAG_PAGE} />
     default:
       return null
   }
