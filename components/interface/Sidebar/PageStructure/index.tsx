@@ -3,9 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import { deleteTag, setActiveTag } from '../../../../store/actions/tags'
 import TagConfiguration from '../../../form/TagConfiguration'
+import { openModal } from '../../../../store/actions/modal'
+import { ADD_TAG_PAGE } from '../../../../store/types/modal'
 
 const PageStructure: React.FC = () => {
+  const dispatch = useDispatch()
   const { tree, activeTag } = useSelector((state: RootState) => state.tags)
+
+  const handleModalAddTag = (): void => {
+    dispatch(openModal(ADD_TAG_PAGE))
+  }
+
   return (
     <div>
       <div>Component tags structure</div>
@@ -14,8 +22,8 @@ const PageStructure: React.FC = () => {
         <TagsLoop tags={tree} />
       </div>
 
-      <TagConfiguration type={`create`} wrapper_type={TAG_PAGE} />
-      {addChild(activeTag)}
+      <button onClick={handleModalAddTag}>Add new tag</button>
+      <AddChild activeTag={activeTag} />
     </div>
   )
 }
@@ -64,13 +72,25 @@ function getChildren(tag: Tag): JSX.Element | undefined {
   if (tag && tag.children && tag.children.length > 0) return <TagsLoop tags={tag.children} />
 }
 
-function addChild(activeTag: Tag | undefined): JSX.Element | undefined {
-  if (activeTag && activeTag.id)
+interface AddChildProps {
+  activeTag: Tag | undefined
+}
+
+const AddChild: React.FC<AddChildProps> = ({ activeTag }) => {
+  const dispatch = useDispatch()
+  if (activeTag && activeTag.id) {
+    const handleModalAddTag = (): void => {
+      dispatch(openModal(ADD_TAG_PAGE))
+    }
     return (
       <div>
+        <p>Configure current tag</p>
         <TagConfiguration type={`edit`} wrapper_type={TAG_PAGE} />
+        <button onClick={handleModalAddTag}>Add child tag</button>
       </div>
     )
+  }
+  return null
 }
 
 export default PageStructure
