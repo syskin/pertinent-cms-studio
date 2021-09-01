@@ -6,14 +6,14 @@ export const DELETE_PAGE = 'DELETE_PAGE'
 export const EDIT_SITE = 'EDIT_SITE'
 
 export const ADD_TAG_PAGE = 'ADD_TAG_PAGE'
-export const EDIT_TAG_PAGE = 'EDIT_TAG_PAGE'
+export const ADD_CHILD_TAG_PAGE = 'ADD_CHILD_TAG_PAGE'
 
 type formTypes =
   | typeof ADD_PAGE
   | typeof DELETE_PAGE
   | typeof EDIT_SITE
   | typeof ADD_TAG_PAGE
-  | typeof EDIT_TAG_PAGE
+  | typeof ADD_CHILD_TAG_PAGE
   | null
 
 export interface DefaultState {

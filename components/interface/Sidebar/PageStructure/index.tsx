@@ -1,10 +1,10 @@
-import { Tag, TAG_PAGE } from '../../../../types/tags'
+import { EDIT_TAG, Tag, TAG_PAGE } from '../../../../types/tags'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import { deleteTag, setActiveTag } from '../../../../store/actions/tags'
 import TagConfiguration from '../../../form/TagConfiguration'
 import { openModal } from '../../../../store/actions/modal'
-import { ADD_TAG_PAGE } from '../../../../store/types/modal'
+import { ADD_TAG_PAGE, ADD_CHILD_TAG_PAGE } from '../../../../store/types/modal'
 
 const PageStructure: React.FC = () => {
   const dispatch = useDispatch()
@@ -80,12 +80,12 @@ const AddChild: React.FC<AddChildProps> = ({ activeTag }) => {
   const dispatch = useDispatch()
   if (activeTag && activeTag.id) {
     const handleModalAddTag = (): void => {
-      dispatch(openModal(ADD_TAG_PAGE))
+      dispatch(openModal(ADD_CHILD_TAG_PAGE))
     }
     return (
       <div>
         <p>Configure current tag</p>
-        <TagConfiguration type={`edit`} wrapper_type={TAG_PAGE} />
+        <TagConfiguration type={EDIT_TAG} wrapper_type={TAG_PAGE} />
         <button onClick={handleModalAddTag}>Add child tag</button>
       </div>
     )

@@ -3,18 +3,18 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../store'
 import { closeModal } from '../../../store/actions/modal'
 import {
+  ADD_CHILD_TAG_PAGE,
   ADD_PAGE,
   ADD_TAG_PAGE,
   DELETE_PAGE,
   EDIT_SITE,
-  EDIT_TAG_PAGE,
   FormTypes,
 } from '../../../store/types/modal'
 
 import PageConfiguration from '../../form/PageConfiguration'
 import DeletePage from '../../form/DeletePage'
 import EditSite from '../../form/EditSite'
-import { TAG_PAGE } from '../../../types/tags'
+import { ADD_CHILD_TAG, ADD_TAG, TAG_PAGE } from '../../../types/tags'
 import TagConfiguration from '../../form/TagConfiguration'
 
 const Modal: React.FC = () => {
@@ -78,9 +78,9 @@ const getForm: React.FC<formProps> = ({ type }) => {
     case EDIT_SITE:
       return <EditSite />
     case ADD_TAG_PAGE:
-      return <TagConfiguration type="create" wrapper_type={TAG_PAGE} />
-    case EDIT_TAG_PAGE:
-      return <TagConfiguration type="edit" wrapper_type={TAG_PAGE} />
+      return <TagConfiguration type={ADD_TAG} wrapper_type={TAG_PAGE} />
+    case ADD_CHILD_TAG_PAGE:
+      return <TagConfiguration type={ADD_CHILD_TAG} wrapper_type={TAG_PAGE} />
     default:
       return null
   }

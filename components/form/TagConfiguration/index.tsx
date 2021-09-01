@@ -3,7 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { closeModal } from '../../../store/actions/modal'
 import { createTag, updateTag } from '../../../store/actions/tags'
-import { Tag, TAG_COMPONENT, TAG_DIV, TAG_SPAN, TAG_PAGE } from '../../../types/tags'
+import {
+  Tag,
+  TAG_COMPONENT,
+  TAG_DIV,
+  TAG_SPAN,
+  TAG_PAGE,
+  EDIT_TAG,
+  ADD_CHILD_TAG,
+} from '../../../types/tags'
 
 interface TagConfigurationFormProps {
   type: string
@@ -28,7 +36,7 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({ type, wrapper_t
       order: 0,
       type: TAG_DIV,
     })
-    if (type !== 'create' && activeTag) {
+    if (type === EDIT_TAG && activeTag) {
       setFormData({ ...activeTag })
     }
   }, [activeTag, type])
@@ -64,9 +72,15 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({ type, wrapper_t
     }
 
     const payload: Tag = { order, depth: 0, wrapper_id, wrapper_type, type: tag_type }
-    if (activeTag) payload.depth = activeTag.depth
+    if (activeTag) {
+      payload.depth = activeTag.depth
+      if (type === ADD_CHILD_TAG) {
+        payload.parent_id = activeTag.id
+        payload.depth = activeTag.depth + 1
+      }
+    }
 
-    if (type !== 'create' && activeTag) {
+    if (type === EDIT_TAG && activeTag) {
       dispatch(updateTag(activeTag.id, payload))
     } else {
       dispatch(createTag(payload))
