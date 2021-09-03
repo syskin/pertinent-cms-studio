@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { updateState } from '../../../store/actions/sidebar'
 import Tabs from '../Tabs'
-import Editor from '@monaco-editor/react'
 
 import PageConfiguration from '../../form/PageConfiguration'
 import PageStructure from './PageStructure'
 import { setActiveTag } from '../../../store/actions/tags'
+import StyleTag from '../../form/StyleTag'
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
@@ -22,20 +22,7 @@ const Sidebar: React.FC = () => {
 
   const GeneralPanel = <PageConfiguration type="edit" />
   const StructurePanel = <PageStructure />
-  const StylePanel = (
-    <Editor
-      height="70vh"
-      defaultLanguage="css"
-      defaultValue=""
-      options={{
-        lineNumbers: false,
-        contextmenu: false,
-        minimap: {
-          enabled: false,
-        },
-      }}
-    />
-  )
+  const StylePanel = <StyleTag />
 
   useEffect(() => {
     if (!isSidebarOpen) return

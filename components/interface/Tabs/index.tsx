@@ -35,7 +35,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultActiveIndex }) => {
       </div>
       {tabs.map((tab, index) => {
         return (
-          <div className="px-3 h-full overflow-y-auto" key={`tab_content_${index}`}>
+          <div className="px-3 h-full" key={`tab_content_${index}`}>
             {activeItem === index ? tab.child : null}
           </div>
         )

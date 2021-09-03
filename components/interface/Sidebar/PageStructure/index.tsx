@@ -18,7 +18,7 @@ const PageStructure: React.FC = () => {
     <div>
       <div>Component tags structure</div>
 
-      <div className="overflow-y-auto h-72">
+      <div className="h-72">
         <TagsLoop tags={tree} />
       </div>
 

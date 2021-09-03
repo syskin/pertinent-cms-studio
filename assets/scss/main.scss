@@ -32,7 +32,7 @@ p {
     }
 }
 
-.btn-add {
+.btn-add, .btn-success {
     @apply bg-green-400 text-white;
     
     &:hover {

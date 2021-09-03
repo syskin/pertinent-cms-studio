@@ -11,10 +11,11 @@ import {
   TAG_PAGE,
   EDIT_TAG,
   ADD_CHILD_TAG,
+  ADD_TAG,
 } from '../../../types/tags'
 
 interface TagConfigurationFormProps {
-  type: string
+  type: typeof ADD_TAG | typeof ADD_CHILD_TAG | typeof EDIT_TAG
   wrapper_type: typeof TAG_COMPONENT | typeof TAG_PAGE
 }
 
@@ -59,26 +60,34 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({ type, wrapper_t
     event.preventDefault()
 
     const target = event.target as typeof event.target & {
-      order: { value: number }
+      order: { value: string }
       type: { value: typeof TAG_DIV | typeof TAG_SPAN }
     }
 
-    const order = target.order.value
+    const order = parseInt(target.order.value)
     const tag_type = target.type.value
 
     let wrapper_id = ``
+
     if (wrapper_type === TAG_PAGE && activePage && activePage.id) {
       wrapper_id = activePage.id
     }
 
     const payload: Tag = { order, depth: 0, wrapper_id, wrapper_type, type: tag_type }
-    if (activeTag) {
+
+    /** Keep parent id while editing tag config */
+    if (activeTag && activeTag.parent_id && type === EDIT_TAG) {
+      payload.parent_id = activeTag.parent_id
       payload.depth = activeTag.depth
-      if (type === ADD_CHILD_TAG) {
-        payload.parent_id = activeTag.id
-        payload.depth = activeTag.depth + 1
-      }
     }
+
+    /** Add parent id and depth +1 when adding new child */
+    if (activeTag && activeTag.id && type === ADD_CHILD_TAG) {
+      payload.parent_id = activeTag.id
+      payload.depth = activeTag.depth + 1
+    }
+
+    console.log(payload)
 
     if (type === EDIT_TAG && activeTag) {
       dispatch(updateTag(activeTag.id, payload))
