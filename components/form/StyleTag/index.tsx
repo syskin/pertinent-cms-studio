@@ -2,7 +2,7 @@ import Editor from '@monaco-editor/react'
 
 const StyleTag: React.FC = () => {
   const handleOnClickBreakPoint = (selectedScreenSize: string) => {
-    console.log(selectedScreenSize)
+    return selectedScreenSize
   }
   const baseStyleButton = `bg-gray-200 rounded-md m-2 px-2 py-1 hover:bg-gray-300 transformation duration-300`
   const screenSizes = ['xs', 'sm', 'md', 'lg', 'xl']
@@ -38,7 +38,7 @@ const StyleTag: React.FC = () => {
   )
 }
 
-const formatStyle = (stylesObject: any) => {
+const formatStyle = (stylesObject: any): string => {
   let styles = `\n`
 
   Object.keys(stylesObject).forEach((style) => {

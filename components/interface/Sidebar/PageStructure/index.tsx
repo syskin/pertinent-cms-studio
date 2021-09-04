@@ -16,13 +16,14 @@ const PageStructure: React.FC = () => {
 
   return (
     <div>
-      <div>Component tags structure</div>
-
-      <div className="h-72">
+      <h2>Component tags structure</h2>
+      <div className="my-4">
+        <button className="btn btn-add small" onClick={handleModalAddTag}>
+          Add new tag
+        </button>
         <TagsLoop tags={tree} />
       </div>
 
-      <button onClick={handleModalAddTag}>Add new tag</button>
       <AddChild activeTag={activeTag} />
     </div>
   )
@@ -40,14 +41,9 @@ const TagsLoop: React.FC<TagsLoopProps> = ({ tags }) => {
       dispatch(setActiveTag(tagId))
     }
   }
-  const handleDelete = (tagId: number | undefined): void => {
-    if (tagId) {
-      dispatch(deleteTag(tagId))
-    }
-  }
   const baseButtonStyle = ``
   return (
-    <div className="flex flex-col ml-2">
+    <div className="flex flex-col ml-2 max-h-72 overflow-y-auto">
       {tags?.map((tag, index) => {
         return (
           <div
@@ -58,8 +54,10 @@ const TagsLoop: React.FC<TagsLoopProps> = ({ tags }) => {
             }
             key={`tag_${index}`}
           >
-            <button onClick={() => handleSelect(tag?.id)}>Select {tag.id}</button>
-            <button onClick={() => handleDelete(tag?.id)}>Delete</button>
+            {hasChildren(tag) ? '>' : ''}
+            <button className="text-sm text-gray-800" onClick={() => handleSelect(tag?.id)}>
+              {tag.type}
+            </button>
             {getChildren(tag)}
           </div>
         )
@@ -68,8 +66,12 @@ const TagsLoop: React.FC<TagsLoopProps> = ({ tags }) => {
   )
 }
 
+function hasChildren(tag: Tag): boolean {
+  return !!(tag && tag.children && tag.children.length > 0)
+}
+
 function getChildren(tag: Tag): JSX.Element | undefined {
-  if (tag && tag.children && tag.children.length > 0) return <TagsLoop tags={tag.children} />
+  if (hasChildren(tag)) return <TagsLoop tags={tag.children} />
 }
 
 interface AddChildProps {
@@ -82,11 +84,21 @@ const AddChild: React.FC<AddChildProps> = ({ activeTag }) => {
     const handleModalAddTag = (): void => {
       dispatch(openModal(ADD_CHILD_TAG_PAGE))
     }
+    const handleDelete = (tagId: number | undefined): void => {
+      if (tagId) {
+        dispatch(deleteTag(tagId))
+      }
+    }
     return (
       <div>
         <p>Configure current tag</p>
+        <button className="btn btn-add small" onClick={handleModalAddTag}>
+          Add child
+        </button>
+        <button className="btn btn-delete small" onClick={() => handleDelete(activeTag?.id)}>
+          Delete
+        </button>
         <TagConfiguration type={EDIT_TAG} wrapper_type={TAG_PAGE} />
-        <button onClick={handleModalAddTag}>Add child tag</button>
       </div>
     )
   }

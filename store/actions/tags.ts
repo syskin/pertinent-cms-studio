@@ -86,7 +86,9 @@ export const createTag = (payload: Tag): ThunkAction<void, RootState, null, Defa
       dispatch({ type: SET_LOADING_TAGS, loading: true })
       let tags = getState().tags?.flat
 
-      payload.order = tags.filter((tag) => tag.depth === payload.depth).length
+      const currentLength = tags.filter((tag) => tag.depth === payload.depth).length
+
+      payload.order = payload.order < currentLength ? currentLength : payload.order
 
       const result = await create(payload)
 

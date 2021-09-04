@@ -87,8 +87,6 @@ const TagConfiguration: React.FC<TagConfigurationFormProps> = ({ type, wrapper_t
       payload.depth = activeTag.depth + 1
     }
 
-    console.log(payload)
-
     if (type === EDIT_TAG && activeTag) {
       dispatch(updateTag(activeTag.id, payload))
     } else {

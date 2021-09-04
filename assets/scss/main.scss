@@ -19,6 +19,10 @@ p {
 .btn {
     @apply py-1 px-2 text-center rounded-md shadow-sm m-1 cursor-pointer transform duration-300 truncate;
 
+    &.small {
+        @apply text-xs p-1;
+    }
+
     &:hover {
         @apply scale-105; 
     }
