@@ -4,7 +4,7 @@ import { RootState } from '../../../../store'
 import { deleteTag, setActiveTag } from '../../../../store/actions/tags'
 import TagConfiguration from '../../../form/TagConfiguration'
 import { openModal } from '../../../../store/actions/modal'
-import { ADD_TAG_PAGE, ADD_CHILD_TAG_PAGE } from '../../../../store/types/modal'
+import { ADD_TAG_PAGE, ADD_CHILD_TAG_PAGE, EDIT_TAG_PAGE } from '../../../../store/types/modal'
 
 const PageStructure: React.FC = () => {
   const dispatch = useDispatch()
@@ -84,6 +84,9 @@ const AddChild: React.FC<AddChildProps> = ({ activeTag }) => {
     const handleModalAddTag = (): void => {
       dispatch(openModal(ADD_CHILD_TAG_PAGE))
     }
+    const handleModalEditTag = (): void => {
+      dispatch(openModal(EDIT_TAG_PAGE))
+    }
     const handleDelete = (tagId: number | undefined): void => {
       if (tagId) {
         dispatch(deleteTag(tagId))
@@ -92,6 +95,9 @@ const AddChild: React.FC<AddChildProps> = ({ activeTag }) => {
     return (
       <div>
         <p>Configure current tag</p>
+        <button className="btn small" onClick={handleModalEditTag}>
+          Configuration
+        </button>
         <button className="btn btn-add small" onClick={handleModalAddTag}>
           Add child
         </button>
