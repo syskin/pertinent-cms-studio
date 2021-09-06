@@ -1,18 +1,31 @@
 import Editor from '@monaco-editor/react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../store'
 
 const StyleTag: React.FC = () => {
-  const handleOnClickBreakPoint = (selectedScreenSize: string) => {
-    return selectedScreenSize
+  const { activeTag } = useSelector((state: RootState) => state.tags)
+  const [activeStyleConfig] = useState(activeTag?.style?.xs)
+
+  interface ScreenSize {
+    size: 'xs' | 'sm'
   }
+
+  const handleOnClickBreakPoint = (selectedScreenSize: ScreenSize) => {
+    console.log(activeStyleConfig)
+    console.log(activeTag?.style?.[selectedScreenSize.size])
+    // setActiveStyleConfig()
+  }
+
   const baseStyleButton = `bg-gray-200 rounded-md m-2 px-2 py-1 hover:bg-gray-300 transformation duration-300`
-  const screenSizes = ['xs', 'sm', 'md', 'lg', 'xl']
+  const screenSizes: ScreenSize[] = [{ size: 'xs' }, { size: 'sm' }]
 
   return (
     <>
-      {screenSizes.map((screenSize) => {
+      {screenSizes.map((screenSize: ScreenSize) => {
         return (
           <button
-            key={`btn_${screenSize}`}
+            key={`btn_${screenSize.size}`}
             className={baseStyleButton}
             onClick={() => handleOnClickBreakPoint(screenSize)}
           >
@@ -38,7 +51,7 @@ const StyleTag: React.FC = () => {
   )
 }
 
-const formatStyle = (stylesObject: any): string => {
+const formatStyle = (stylesObject: { [key: string]: string }): string => {
   let styles = `\n`
 
   Object.keys(stylesObject).forEach((style) => {
