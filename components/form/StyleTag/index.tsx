@@ -5,16 +5,14 @@ import { RootState } from '../../../store'
 
 const StyleTag: React.FC = () => {
   const { activeTag } = useSelector((state: RootState) => state.tags)
-  const [activeStyleConfig] = useState(activeTag?.style?.xs)
+  const [activeStyleConfig, setActiveStyleConfig] = useState(activeTag?.style?.xs)
 
   interface ScreenSize {
     size: 'xs' | 'sm'
   }
 
   const handleOnClickBreakPoint = (selectedScreenSize: ScreenSize) => {
-    console.log(activeStyleConfig)
-    console.log(activeTag?.style?.[selectedScreenSize.size])
-    // setActiveStyleConfig()
+    setActiveStyleConfig(activeTag?.style?.[selectedScreenSize.size])
   }
 
   const baseStyleButton = `bg-gray-200 rounded-md m-2 px-2 py-1 hover:bg-gray-300 transformation duration-300`
@@ -29,7 +27,7 @@ const StyleTag: React.FC = () => {
             className={baseStyleButton}
             onClick={() => handleOnClickBreakPoint(screenSize)}
           >
-            {screenSize}
+            {screenSize.size}
           </button>
         )
       })}
@@ -37,7 +35,7 @@ const StyleTag: React.FC = () => {
       <Editor
         height="70vh"
         defaultLanguage="css"
-        value={`div {${formatStyle({ 'text-align': 'center', color: '#eeeeee' })}}`}
+        value={`${activeTag?.type?.toLowerCase()} {${formatStyle(activeStyleConfig)}}`}
         options={{
           lineNumbers: false,
           contextmenu: false,
@@ -51,12 +49,15 @@ const StyleTag: React.FC = () => {
   )
 }
 
-const formatStyle = (stylesObject: { [key: string]: string }): string => {
+const formatStyle = (stylesObject: { [key: string]: string } | undefined): string => {
   let styles = `\n`
 
-  Object.keys(stylesObject).forEach((style) => {
-    styles += `${style}: ${stylesObject[style]}; \n`
-  })
+  if (stylesObject)
+    Object.keys(stylesObject).forEach((style) => {
+      styles += `${style}: ${stylesObject[style]}; \n`
+    })
+  else styles += `\n`
+
   return styles
 }
 

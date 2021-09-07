@@ -1,8 +1,7 @@
-import { EDIT_TAG, Tag, TAG_PAGE } from '../../../../types/tags'
+import { Tag } from '../../../../types/tags'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import { deleteTag, setActiveTag } from '../../../../store/actions/tags'
-import TagConfiguration from '../../../form/TagConfiguration'
 import { openModal } from '../../../../store/actions/modal'
 import { ADD_TAG_PAGE, ADD_CHILD_TAG_PAGE, EDIT_TAG_PAGE } from '../../../../store/types/modal'
 
@@ -104,7 +103,6 @@ const AddChild: React.FC<AddChildProps> = ({ activeTag }) => {
         <button className="btn btn-delete small" onClick={() => handleDelete(activeTag?.id)}>
           Delete
         </button>
-        <TagConfiguration type={EDIT_TAG} wrapper_type={TAG_PAGE} />
       </div>
     )
   }
