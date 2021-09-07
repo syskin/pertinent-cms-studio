@@ -53,7 +53,7 @@ const TagContent: React.FC<TagContentProps> = ({ tag }) => {
 
   return (
     <>
-      {tag.type} - {tag.id}
+      {tag.type} - {tag.id} - {JSON.stringify(tag.style)}
     </>
   )
 }

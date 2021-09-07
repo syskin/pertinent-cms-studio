@@ -143,3 +143,31 @@ export const updateTag = (
     }
   }
 }
+
+// Update a tag without persisting data
+export const updateTagPersistless = (
+  id: number | undefined,
+  payload: Tag
+): ThunkAction<void, RootState, null, DefaultAction> => {
+  return async (dispatch, getState) => {
+    try {
+      if (!id) throw new Error('Tag id is missing')
+
+      dispatch({ type: SET_LOADING_TAGS, loading: true })
+      const tags = getState().tags?.flat
+      const tagToUpdate = tags.filter((tag) => tag.id === id)
+      const updatedTags = updateOneTag({ ...tagToUpdate[0], ...payload }, tags)
+
+      dispatch({ type: SET_ACTIVE_TAG, tag: tagToUpdate[0] })
+      dispatch({ type: UPDATE_ONE_TAG_BY_ID, flat: updatedTags, tree: buildTagsTree(updatedTags) })
+    } catch (e) {
+      toast.error(e.message)
+      dispatch({
+        type: SET_ERROR_TAGS,
+        error: e.message,
+      })
+    } finally {
+      dispatch({ type: SET_LOADING_TAGS, loading: false })
+    }
+  }
+}
