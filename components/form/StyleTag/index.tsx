@@ -45,7 +45,7 @@ const StyleTag: React.FC = () => {
       properties.map((property) => {
         const keyValue = property.split(':')
         if (keyValue && keyValue.length > 0 && keyValue[0] && keyValue[1])
-          propertiesObject[keyValue[0].trim()] = keyValue[1].trim()
+          propertiesObject[kebabToCamelCase(keyValue[0].trim())] = keyValue[1].trim()
       })
     }
 
@@ -92,12 +92,16 @@ const StyleTag: React.FC = () => {
   )
 }
 
+const camelToKebabCase = (input: string): string =>
+  input.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+const kebabToCamelCase = (input: string): string => input.replace(/-./g, (x) => x.toUpperCase()[1])
+
 const formatStyle = (stylesObject: { [key: string]: string } | undefined): string => {
   let styles = `\n`
 
   if (stylesObject)
     Object.keys(stylesObject).forEach((style) => {
-      styles += `${style}: ${stylesObject[style]}; \n`
+      styles += `${camelToKebabCase(style)}: ${stylesObject[style]}; \n`
     })
   else styles += `\n`
 

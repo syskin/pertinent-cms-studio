@@ -27,13 +27,13 @@ const TagsManager: React.FC<TagsManagerProps> = ({ tags }) => {
         switch (tag?.type) {
           case TAG_SPAN:
             return (
-              <span key={key}>
+              <span key={key} style={tag?.style?.xs || {}}>
                 <TagContent tag={tag} />
               </span>
             )
           default:
             return (
-              <div className="ml-2" key={key}>
+              <div key={key} style={tag?.style?.xs || {}}>
                 <TagContent tag={tag} />
               </div>
             )

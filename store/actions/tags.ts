@@ -154,11 +154,13 @@ export const updateTagPersistless = (
       if (!id) throw new Error('Tag id is missing')
 
       dispatch({ type: SET_LOADING_TAGS, loading: true })
+
       const tags = getState().tags?.flat
       const tagToUpdate = tags.filter((tag) => tag.id === id)
-      const updatedTags = updateOneTag({ ...tagToUpdate[0], ...payload }, tags)
+      const updatedTag = { ...tagToUpdate[0], ...payload }
+      const updatedTags = updateOneTag(updatedTag, tags)
 
-      dispatch({ type: SET_ACTIVE_TAG, tag: tagToUpdate[0] })
+      dispatch({ type: SET_ACTIVE_TAG, tag: updatedTag })
       dispatch({ type: UPDATE_ONE_TAG_BY_ID, flat: updatedTags, tree: buildTagsTree(updatedTags) })
     } catch (e) {
       toast.error(e.message)
