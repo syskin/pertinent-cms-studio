@@ -3,25 +3,17 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { updateTagPersistless } from '../../../store/actions/tags'
+import { ScreenSize, screenSizes } from '../../../types/breakpoints'
+import { camelToKebabCase, kebabToCamelCase } from '../../../utils'
 
 const StyleTag: React.FC = () => {
   const dispatch = useDispatch()
   const { activeTag } = useSelector((state: RootState) => state.tags)
   const [activeStyleConfig, setActiveStyleConfig] = useState(activeTag?.style?.xs)
-  const screenSizes: ScreenSize[] = [
-    { size: 'xs' },
-    { size: 'sm' },
-    { size: 'md' },
-    { size: 'lg' },
-    { size: 'xl' },
-  ]
+
   const [activeBreakpoint, setActiveBreakpoint] = useState(screenSizes[0])
 
   if (!activeTag) return <div>Null</div>
-
-  interface ScreenSize {
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  }
 
   const handleOnClickBreakPoint = (selectedScreenSize: ScreenSize): void => {
     setActiveBreakpoint(selectedScreenSize)
@@ -91,10 +83,6 @@ const StyleTag: React.FC = () => {
     </>
   )
 }
-
-const camelToKebabCase = (input: string): string =>
-  input.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
-const kebabToCamelCase = (input: string): string => input.replace(/-./g, (x) => x.toUpperCase()[1])
 
 const formatStyle = (stylesObject: { [key: string]: string } | undefined): string => {
   let styles = `\n`
