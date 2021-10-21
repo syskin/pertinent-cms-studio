@@ -120,12 +120,8 @@ export const updateTag = (
 
       dispatch({ type: SET_LOADING_TAGS, loading: true })
 
-      /*
-        Don't make api call here, just update tag properties and update the tree
-        The API call will be done whn the user will click on a button to save
-      */
-
       const result = await updateOneById(id, payload)
+      console.log(result)
       const tags = getState().tags?.flat
       const tagToUpdate = tags.filter((tag) => tag.id === id)
       const updatedTags = updateOneTag({ ...tagToUpdate[0], ...payload }, tags)

@@ -2,7 +2,7 @@ import Editor from '@monaco-editor/react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store'
-import { updateTagPersistless } from '../../../store/actions/tags'
+import { updateTag, updateTagPersistless } from '../../../store/actions/tags'
 import { ScreenSize, screenSizes } from '../../../types/breakpoints'
 import { camelToKebabCase, kebabToCamelCase } from '../../../utils'
 
@@ -50,6 +50,11 @@ const StyleTag: React.FC = () => {
     dispatch(updateTagPersistless(activeTag.id, { ...activeTag, style }))
   }
 
+  const handleSave = (): void => {
+    console.log(activeTag)
+    dispatch(updateTag(activeTag.id, activeTag))
+  }
+
   const baseStyleButton = `bg-gray-200 rounded-md m-2 px-2 py-1 hover:bg-gray-300 transformation duration-300`
 
   return (
@@ -79,7 +84,9 @@ const StyleTag: React.FC = () => {
           },
         }}
       />
-      <button className="btn btn-success">Save</button>
+      <button className="btn btn-success" onClick={handleSave}>
+        Save
+      </button>
     </>
   )
 }
